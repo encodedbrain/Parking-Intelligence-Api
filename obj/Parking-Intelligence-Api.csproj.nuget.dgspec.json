@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
+    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
+    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectUniqueName": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "projectName": "Parking-Intelligence-Api",
-        "projectPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
+        "outputPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config"
