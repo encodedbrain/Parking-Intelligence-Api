@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
+    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
+    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectUniqueName": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "projectName": "Parking-Intelligence-Api",
-        "projectPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
+        "outputPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -49,6 +49,10 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.11, )"
+            },
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.5, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
