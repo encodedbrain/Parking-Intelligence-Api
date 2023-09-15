@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
+    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {}
   },
   "projects": {
-    "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
+    "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectUniqueName": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "projectName": "Parking-Intelligence-Api",
-        "projectPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+        "projectPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
         "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
+        "outputPath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -60,6 +60,18 @@
               "target": "Package",
               "version": "[7.0.11, )"
             },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.IdentityModel.JsonWebTokens": {
+              "target": "Package",
+              "version": "[6.31.0, )"
+            },
             "MySql.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -67,6 +79,14 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.31.0, )"
             }
           },
           "imports": [
