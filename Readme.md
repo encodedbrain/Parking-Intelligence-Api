@@ -40,5 +40,5 @@ Este projeto está licenciado sob a licença MIT.
 
 ## Contato
 
-Se você tiver alguma dúvida, entre em contato comigo em [marco](marcodmc0101@gmail.com).
+Se você tiver alguma dúvida, entre em contato comigo em [marco damaceno](mailto:marcodmc0101@gmail.com?subject=[GitHub]%20Source%20Han%20Sans).
 
