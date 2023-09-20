@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1;
 using Parking_Intelligence_Api.Models;
 
 namespace Parking_Intelligence_Api.Data
@@ -16,6 +17,7 @@ namespace Parking_Intelligence_Api.Data
         DbSet<Invoice> Invoices { get; set; }
         DbSet<Shopping> Shoppings { get; set; }
         DbSet<Ticket> Tickets { get; set; }
+        DbSet<Account> Accounts { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
