@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -29,6 +30,10 @@ builder.Services.AddCors(options =>
     );
 });
 
+// solving JsonException object cycle problem
+builder.Services
+    .AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 IdentityModelEventSource.ShowPII = true;
 
 var hash = builder.Configuration.GetConnectionString("secret");
