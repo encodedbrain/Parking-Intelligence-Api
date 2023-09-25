@@ -2,43 +2,34 @@ namespace Parking_Intelligence_Api.Models
 {
     public class Invoice
     {
-        public Invoice() { }
-
         public Invoice(
-            string adress,
-            int payment,
-            int value,
-            string type,
-            int money,
-            int transshipment
+            int ticketNumber,
+            DateTime dateEntry,
+            DateTime departureDate,
+            DateTime stayTime,
+            decimal amountPaid,
+            decimal expense,
+            decimal rest
         )
         {
-            var rnd = new Random().Next();
-            Id = rnd;
-            Address = adress;
-            Ticket = rnd;
-            Entrance = DateTime.Now.ToString();
-            Payment = payment;
-            Value = value;
-            Type = type;
-            Permanence = DateTime.Now.ToShortTimeString();
-            Money = money;
-            Transshipment = transshipment;
-            InvoiceId = rnd;
+            this.ticketNumber = ticketNumber;
+            this.dateEntry = dateEntry;
+            this.departureDate = departureDate;
+            this.stayTime = stayTime;
+            this.amountPaid = amountPaid;
+            this.expense = expense;
+            this.rest = rest;
         }
-
-        public int Id { get; set; }
-
-        public int InvoiceId { get; private set; }
-        public string Address { get; private set; }
-        public int Ticket { get; private set; }
-        public string Entrance { get; private set; }
-        public decimal Payment { get; private set; }
-        public decimal Value { get; private set; }
-        public string Type { get; private set; }
-        public string Permanence { get; private set; }
-        public decimal Money { get; private set; }
-        public decimal Transshipment { get; private set; }
-        public IEnumerable<Shopping> Shopping { get; private set; }
+        public int id { get; private set; }
+        public int ticketNumber { get; private set; }
+        public DateTime dateEntry { get; private set; }
+        public DateTime departureDate { get; private set; }
+        public DateTime stayTime { get; private set; }
+        public decimal amountPaid { get; private set; }
+        public decimal expense { get; private set; }
+        public decimal rest { get; private set; }
+        public int buy_id { get; private set; }
+        public virtual Buy Buy { get; private set; }
+        public virtual Ticket Ticket { get; private set; }
     }
 }
