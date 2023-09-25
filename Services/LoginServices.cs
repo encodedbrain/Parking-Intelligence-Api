@@ -9,7 +9,7 @@ namespace Parking_Intelligence_Api.Services
         ParkingDB DB = new ParkingDB();
         User users = new User();
 
-        internal bool FindUser(Login user)
+        internal bool FindUser(LoginSchema user)
         {
             var filter = DB.Users
                 .Where(
@@ -26,7 +26,7 @@ namespace Parking_Intelligence_Api.Services
             return true;
         }
 
-        internal object ReturnUser(Login user)
+        internal object ReturnUser(LoginSchema user)
         {
             var filter = DB.Users
                 .Where(
@@ -47,7 +47,7 @@ namespace Parking_Intelligence_Api.Services
             return new { };
         }
 
-        internal bool ValidateCredentials(string email, string password, Login user)
+        internal bool ValidateCredentials(string email, string password, LoginSchema user)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return false;
