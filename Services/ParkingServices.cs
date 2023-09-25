@@ -12,7 +12,7 @@ namespace Parking_Intelligence_Api.Services
         {
             var builder = WebApplication.CreateBuilder();
 
-            var hash = builder.Configuration.GetConnectionString("secret");
+            string? hash = builder.Configuration.GetConnectionString("secret");
 
             if (hash != null)
             {
@@ -20,15 +20,15 @@ namespace Parking_Intelligence_Api.Services
 
                 if (users != null)
                 {
-                    var config = new SecurityTokenDescriptor
+                    SecurityTokenDescriptor config = new SecurityTokenDescriptor
                     {
                         Subject = new ClaimsIdentity(
                             new[]
                             {
-                                new Claim(ClaimTypes.Name, users.Cpf),
+                                new Claim(ClaimTypes.Name, users.password),
                                 new Claim(
                                     ClaimTypes.Role,
-                                    users.UserId.ToString() ?? throw new InvalidOperationException()
+                                    users.password ?? throw new InvalidOperationException()
                                 )
                             }
                         ),
