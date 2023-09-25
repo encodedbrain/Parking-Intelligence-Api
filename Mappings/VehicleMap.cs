@@ -8,39 +8,37 @@ namespace Parking_Intelligence_Api.Mappings
     {
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
-            builder.ToTable("Vehicles");
-            builder.HasKey(prop => prop.Id);
+            builder.ToTable("vehicles");
+            builder.HasKey(prop => prop.id);
+
+            builder.Property(prop => prop.bodywork).HasColumnName("bodywork").HasColumnType("int");
+            builder
+                .Property(prop => prop.brand)
+                .HasColumnName("brand")
+                .HasColumnType("varchar(20)");
+            builder
+                .Property(prop => prop.color)
+                .HasColumnName("color")
+                .HasColumnType("varchar(20)");
+            builder
+                .Property(prop => prop.licensePlate)
+                .HasColumnName("licenseplate")
+                .HasColumnType("varchar(20)");
+            builder
+                .Property(prop => prop.model)
+                .HasColumnName("model")
+                .HasColumnType("varchar(20)");
+            builder
+                .Property(prop => prop.species)
+                .HasColumnName("species")
+                .HasColumnType("varchar(20)");
+            builder.Property(prop => prop.year).HasColumnName("year").HasColumnType("int");
 
             builder
-                .Property(prop => prop.Color)
-                .HasColumnName("Colors")
-                .HasColumnType("varchar(10)");
-            builder
-                .Property(prop => prop.Bodywork)
-                .HasColumnName("Bodyworks")
-                .HasColumnType("varchar(10)");
-            builder
-                .Property(prop => prop.LicensePlate)
-                .HasColumnName("LicensePlates")
-                .HasColumnType("varchar(6)");
-
-            builder
-                .Property(prop => prop.Model)
-                .HasColumnName("Models")
-                .HasColumnType("varchar(10)");
-
-            builder.Property(prop => prop.Year).HasColumnName("Years").HasColumnType("varchar(4)");
-
-            builder.Property(prop => prop.Type).HasColumnName("Types").HasColumnType("varchar(10)");
-
-            builder
-                .Property(prop => prop.Species)
-                .HasColumnName("Species")
-                .HasColumnType("varchar(10)");
-            builder
-                .HasOne(prop => prop.Parkings)
+                .HasOne(prop => prop.User)
                 .WithMany(prop => prop.Vehicles)
-                .HasForeignKey(prop => prop.ParkingId);
+                .HasForeignKey(prop => prop.user_id)
+                .IsRequired();
         }
     }
 }

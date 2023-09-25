@@ -8,15 +8,16 @@ namespace Parking_Intelligence_Api.Mappings
     {
         public void Configure(EntityTypeBuilder<Ticket> builder)
         {
-            builder.ToTable("Tickets");
-            builder.HasKey(prop => prop.Id);
+            builder.ToTable("ticket");
+            builder.HasKey(prop => prop.id);
 
-            builder.Property(prop => prop.Hour).HasColumnName("Hours").HasColumnType("varchar(5)");
-            builder.Property(prop => prop.Date).HasColumnName("Dates").HasColumnType("varchar(11)");
+            builder.Property(prop => prop.date).HasColumnName("date").HasColumnType("varchar(10)");
+            builder.Property(prop => prop.hour).HasColumnName("hour").HasColumnType("varchar(10)");
+            builder.Property(prop => prop.sequence).HasColumnName("sequence").HasColumnType("int");
             builder
-                .Property(prop => prop.Address)
-                .HasColumnName("Address")
-                .HasColumnType("varchar(20)");
+                .Property(prop => prop.ticketNumber)
+                .HasColumnName("ticketNumber")
+                .HasColumnType("int");
         }
     }
-};
+}

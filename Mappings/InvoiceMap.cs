@@ -8,39 +8,33 @@ namespace Parking_Intelligence_Api.Mappings
     {
         public void Configure(EntityTypeBuilder<Invoice> builder)
         {
-            builder.ToTable("Invoices");
-            builder.HasKey(prop => prop.Id);
+            builder.ToTable("invoice");
+            builder.HasKey(prop => prop.id);
             builder
-                .Property(prop => prop.Address)
-                .HasColumnName("Address")
+                .Property(prop => prop.amountPaid)
+                .HasColumnName("amountPaid")
+                .HasColumnType("decimal(5,2)");
+            builder
+                .Property(prop => prop.dateEntry)
+                .HasColumnName("dateEntry")
                 .HasColumnType("varchar(20)");
             builder
-                .Property(prop => prop.Entrance)
-                .HasColumnName("Entrances")
-                .HasColumnType("varchar(10)");
+                .Property(prop => prop.departureDate)
+                .HasColumnName("departureDate")
+                .HasColumnType("varchar(20)");
             builder
-                .Property(prop => prop.Payment)
-                .HasColumnName("Payments")
-                .HasColumnType("decimal(4,2)");
+                .Property(prop => prop.expense)
+                .HasColumnName("expense")
+                .HasColumnType("decimal(5,2)");
+            builder.Property(prop => prop.rest).HasColumnName("rest").HasColumnType("decimal(5,2)");
             builder
-                .Property(prop => prop.Value)
-                .HasColumnName("Values")
-                .HasColumnType("decimal(4,2)");
-
-            builder.Property(prop => prop.Type).HasColumnName("Types").HasColumnType("varchar(10)");
+                .Property(prop => prop.stayTime)
+                .HasColumnName("stayTime")
+                .HasColumnType("varchar(20)");
             builder
-                .Property(prop => prop.Permanence)
-                .HasColumnName("Permanences")
-                .HasColumnType("varchar(10)");
-
-            builder
-                .Property(prop => prop.Entrance)
-                .HasColumnName("Moneys")
-                .HasColumnType("decimal(4,2)");
-            builder
-                .Property(prop => prop.Transshipment)
-                .HasColumnName("Transshipments")
-                .HasColumnType("decimal(4,2)");
+                .Property(prop => prop.ticketNumber)
+                .HasColumnName("ticketNumber")
+                .HasColumnType("int");
         }
     }
 }

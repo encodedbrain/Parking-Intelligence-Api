@@ -8,22 +8,31 @@ namespace Parking_Intelligence_Api.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Users");
-            builder.HasKey(prop => prop.UserId);
+            builder.ToTable("user");
+            builder.HasKey(prop => prop.id);
 
-            builder.Property(prop => prop.Cpf).HasColumnName("Cpfs").HasColumnType("varchar(11)");
             builder
-                .HasMany(prop => prop.Shoppings)
-                .WithOne(prop => prop.Users)
-                .HasForeignKey(prop => prop.UserId);
-            // builder
-            //     .HasOne(prop => prop.Parkings)
-            //     .WithMany(prop => prop.Users)
-            //     .HasForeignKey(prop => prop.ParkingId);
+                .Property(prop => prop.email)
+                .HasColumnName("email")
+                .HasColumnType("varchar(50)");
             builder
-                .HasOne(prop => prop.Account)
+                .Property(prop => prop.password)
+                .HasColumnName("password")
+                .HasColumnType("varchar(10)");
+            builder
+                .Property(prop => prop.nickname)
+                .HasColumnName("nickname")
+                .HasColumnType("varchar(30)");
+            builder
+                .HasMany(prop => prop.Buys)
                 .WithOne(prop => prop.User)
-                .HasForeignKey<User>(prop => prop.AccountId);
+                .HasForeignKey(prop => prop.user_id)
+                .IsRequired();
+            builder
+                .HasMany(prop => prop.Vehicles)
+                .WithOne(prop => prop.User)
+                .HasForeignKey(prop => prop.user_id)
+                .IsRequired();
         }
     }
 }
