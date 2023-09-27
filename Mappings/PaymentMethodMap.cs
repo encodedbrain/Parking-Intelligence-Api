@@ -13,7 +13,9 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .Property(prop => prop.method)
                 .HasColumnName("method")
-                .HasColumnType("varchar(10)");
+                .HasColumnType("varchar(100)");
+
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

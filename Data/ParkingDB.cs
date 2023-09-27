@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
+using Parking_Intelligence_Api.Mappings;
 using Parking_Intelligence_Api.Models;
 
 namespace Parking_Intelligence_Api.Data
 {
     public class ParkingDB : DbContext
     {
-        public ParkingDB()
-        {
-        }
+        public ParkingDB() { }
 
         public ParkingDB(DbContextOptions<ParkingDB> options)
             : base(options) { }
+
         public DbSet<Tables> PriceTable { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<User> Users { get; set; }
@@ -20,7 +20,6 @@ namespace Parking_Intelligence_Api.Data
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Calendars> Calendars { get; set; }
         public DbSet<UserData> UserDatas { get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,12 +42,6 @@ namespace Parking_Intelligence_Api.Data
                 .HasForeignKey<UserData>(e => e.user_id)
                 .IsRequired();
 
-            modelBuilder
-                .Entity<User>()
-                .HasOne(e => e.UserData)
-                .WithOne(e => e.User)
-                .HasForeignKey<UserData>(e => e.user_id)
-                .IsRequired();
             // invoice/buy
             modelBuilder
                 .Entity<Buy>()
@@ -63,6 +56,7 @@ namespace Parking_Intelligence_Api.Data
                 .WithOne(e => e.Invoice)
                 .HasForeignKey<Invoice>(e => e.buy_id)
                 .IsRequired();
+
             // payment/buy
 
             modelBuilder
@@ -107,6 +101,16 @@ namespace Parking_Intelligence_Api.Data
                 .WithOne(e => e.Ticket)
                 .HasForeignKey<Ticket>(e => e.invoice_id)
                 .IsRequired();
+
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new BuyMap());
+            modelBuilder.ApplyConfiguration(new CalendarMap());
+            modelBuilder.ApplyConfiguration(new InvoiceMap());
+            modelBuilder.ApplyConfiguration(new TicketMap());
+            modelBuilder.ApplyConfiguration(new VehicleMap());
+            modelBuilder.ApplyConfiguration(new TablesMap());
+            modelBuilder.ApplyConfiguration(new PaymentMethodMap());
+            modelBuilder.ApplyConfiguration(new UserDataMap());
         }
     }
 }

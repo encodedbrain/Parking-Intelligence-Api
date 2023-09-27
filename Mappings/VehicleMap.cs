@@ -15,23 +15,23 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .Property(prop => prop.brand)
                 .HasColumnName("brand")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.color)
                 .HasColumnName("color")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.licensePlate)
                 .HasColumnName("licenseplate")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.model)
                 .HasColumnName("model")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.species)
                 .HasColumnName("species")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder.Property(prop => prop.year).HasColumnName("year").HasColumnType("int");
 
             builder
@@ -39,6 +39,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .WithMany(prop => prop.Vehicles)
                 .HasForeignKey(prop => prop.user_id)
                 .IsRequired();
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

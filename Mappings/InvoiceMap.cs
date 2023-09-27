@@ -17,11 +17,11 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .Property(prop => prop.dateEntry)
                 .HasColumnName("dateEntry")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.departureDate)
                 .HasColumnName("departureDate")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.expense)
                 .HasColumnName("expense")
@@ -30,11 +30,12 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .Property(prop => prop.stayTime)
                 .HasColumnName("stayTime")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.ticketNumber)
                 .HasColumnName("ticketNumber")
                 .HasColumnType("int");
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

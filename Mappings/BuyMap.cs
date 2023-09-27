@@ -14,7 +14,7 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .Property(prop => prop.vacancyType)
                 .HasColumnName("vacancyType")
-                .HasColumnType("varchar(20)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.value)
                 .HasColumnName("value")
@@ -24,6 +24,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .WithMany(prop => prop.Buys)
                 .HasForeignKey(prop => prop.user_id)
                 .IsRequired();
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

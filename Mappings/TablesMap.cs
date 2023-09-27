@@ -17,6 +17,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .Property(prop => prop.motorcycle)
                 .HasColumnName("motorcycle")
                 .HasColumnType("decimal(5,2)");
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

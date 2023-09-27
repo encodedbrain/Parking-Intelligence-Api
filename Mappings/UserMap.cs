@@ -10,19 +10,20 @@ namespace Parking_Intelligence_Api.Mappings
         {
             builder.ToTable("user");
             builder.HasKey(prop => prop.id);
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
 
             builder
                 .Property(prop => prop.email)
                 .HasColumnName("email")
-                .HasColumnType("varchar(50)");
+                .HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.password)
                 .HasColumnName("password")
-                .HasColumnType("varchar(10)");
+                .HasColumnType("varchar(256)");
             builder
                 .Property(prop => prop.nickname)
                 .HasColumnName("nickname")
-                .HasColumnType("varchar(30)");
+                .HasColumnType("varchar(100)");
             builder
                 .HasMany(prop => prop.Buys)
                 .WithOne(prop => prop.User)
@@ -33,6 +34,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .WithOne(prop => prop.User)
                 .HasForeignKey(prop => prop.user_id)
                 .IsRequired();
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

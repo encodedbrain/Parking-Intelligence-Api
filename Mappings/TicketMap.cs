@@ -11,13 +11,14 @@ namespace Parking_Intelligence_Api.Mappings
             builder.ToTable("ticket");
             builder.HasKey(prop => prop.id);
 
-            builder.Property(prop => prop.date).HasColumnName("date").HasColumnType("varchar(10)");
-            builder.Property(prop => prop.hour).HasColumnName("hour").HasColumnType("varchar(10)");
+            builder.Property(prop => prop.date).HasColumnName("date").HasColumnType("varchar(100)");
+            builder.Property(prop => prop.hour).HasColumnName("hour").HasColumnType("varchar(100)");
             builder.Property(prop => prop.sequence).HasColumnName("sequence").HasColumnType("int");
             builder
                 .Property(prop => prop.ticketNumber)
                 .HasColumnName("ticketNumber")
                 .HasColumnType("int");
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }

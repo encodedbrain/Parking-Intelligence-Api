@@ -11,13 +11,9 @@ namespace Parking_Intelligence_Api.Mappings
             builder.ToTable("calendar");
             builder.HasKey(prop => prop.id);
 
-            builder.Property(prop => prop.day).HasColumnName("day").HasColumnType("varchar(20)");
-            builder
-                .Property(prop => prop.mounth)
-                .HasColumnName("mounth")
-                .HasColumnType("varchar(20)");
-            builder.Property(prop => prop.year).HasColumnName("year").HasColumnType("int");
+            builder.Property(prop => prop.date).HasColumnType("datetime");
 
+            builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }
     }
 }
