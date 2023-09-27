@@ -5,7 +5,7 @@
 *.suo
 *.user
 *.sln.docstates
-*.Development.json
+*appsettings.Development.json
 .idea/
 *Migrations
 
