@@ -18,7 +18,7 @@ namespace Parking_Intelligence_Api.Models
             this.password = password;
         }
 
-        public int id { get; private set; }
+        public int id { get; set; }
         public string email { get; internal set; }
         public string nickname { get; internal set; }
         public string password { get; internal set; }
