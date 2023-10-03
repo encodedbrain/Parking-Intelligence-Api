@@ -10,7 +10,7 @@ namespace Parking_Intelligence_Api.Mappings
         {
             builder.ToTable("buy");
             builder.HasKey(prop => prop.id);
-            builder.Property(prop => prop.date).HasColumnName("date").HasColumnType("varchar(20)");
+            builder.Property(prop => prop.date).HasColumnName("date").HasColumnType("varchar(100)");
             builder
                 .Property(prop => prop.vacancyType)
                 .HasColumnName("vacancyType")
@@ -22,7 +22,7 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .HasOne(prop => prop.User)
                 .WithMany(prop => prop.Buys)
-                .HasForeignKey(prop => prop.user_id)
+                .HasForeignKey(prop => prop.userId)
                 .IsRequired();
             builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }

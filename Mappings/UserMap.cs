@@ -27,12 +27,12 @@ namespace Parking_Intelligence_Api.Mappings
             builder
                 .HasMany(prop => prop.Buys)
                 .WithOne(prop => prop.User)
-                .HasForeignKey(prop => prop.user_id)
+                .HasForeignKey(prop => prop.userId)
                 .IsRequired();
             builder
                 .HasMany(prop => prop.Vehicles)
                 .WithOne(prop => prop.User)
-                .HasForeignKey(prop => prop.user_id)
+                .HasForeignKey(prop => prop.userId)
                 .IsRequired();
             builder.Property(prop => prop.id).ValueGeneratedOnAdd();
         }

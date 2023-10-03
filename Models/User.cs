@@ -22,7 +22,7 @@ namespace Parking_Intelligence_Api.Models
         public string email { get; internal set; }
         public string nickname { get; internal set; }
         public string password { get; internal set; }
-        public virtual UserData UserData { get; internal set; }
+        public virtual UserData userData { get; internal set; }
         public virtual ICollection<Vehicle> Vehicles { get; internal set; }
         public virtual ICollection<Buy> Buys { get; internal set; }
 

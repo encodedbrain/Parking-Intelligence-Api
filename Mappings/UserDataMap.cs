@@ -14,7 +14,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .Property(prop => prop.fullName)
                 .HasColumnName("fullname")
                 .HasColumnType("varchar(100)");
-            builder.Property(prop => prop.Cpf).HasColumnName("cpf").HasColumnType("varchar(11)");
+            builder.Property(prop => prop.cpf).HasColumnName("cpf").HasColumnType("varchar(11)");
             builder
                 .Property(prop => prop.address)
                 .HasColumnName("address")

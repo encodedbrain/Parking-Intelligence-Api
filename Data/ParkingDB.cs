@@ -38,39 +38,39 @@ namespace Parking_Intelligence_Api.Data
             modelBuilder
                 .Entity<UserData>()
                 .HasOne(e => e.User)
-                .WithOne(e => e.UserData)
-                .HasForeignKey<UserData>(e => e.user_id)
+                .WithOne(e => e.userData)
+                .HasForeignKey<UserData>(e => e.userId)
                 .IsRequired();
 
             // invoice/buy
             modelBuilder
                 .Entity<Buy>()
-                .HasOne(e => e.Invoice)
+                .HasOne(e => e.invoice)
                 .WithOne(e => e.Buy)
-                .HasForeignKey<Invoice>(e => e.buy_id)
+                .HasForeignKey<Invoice>(e => e.buyId)
                 .IsRequired();
 
             modelBuilder
                 .Entity<Invoice>()
                 .HasOne(e => e.Buy)
-                .WithOne(e => e.Invoice)
-                .HasForeignKey<Invoice>(e => e.buy_id)
+                .WithOne(e => e.invoice)
+                .HasForeignKey<Invoice>(e => e.buyId)
                 .IsRequired();
 
             // payment/buy
 
             modelBuilder
                 .Entity<Buy>()
-                .HasOne(e => e.PaymentMethod)
+                .HasOne(e => e.paymentMethod)
                 .WithOne(e => e.Buy)
-                .HasForeignKey<PaymentMethod>(e => e.buy_id)
+                .HasForeignKey<PaymentMethod>(e => e.buyId)
                 .IsRequired();
 
             modelBuilder
                 .Entity<PaymentMethod>()
                 .HasOne(e => e.Buy)
-                .WithOne(e => e.PaymentMethod)
-                .HasForeignKey<PaymentMethod>(e => e.buy_id)
+                .WithOne(e => e.paymentMethod)
+                .HasForeignKey<PaymentMethod>(e => e.buyId)
                 .IsRequired();
 
             //table/calendar
@@ -78,28 +78,28 @@ namespace Parking_Intelligence_Api.Data
                 .Entity<Tables>()
                 .HasOne(e => e.Calendar)
                 .WithOne(e => e.Table)
-                .HasForeignKey<Calendars>(e => e.tables_id)
+                .HasForeignKey<Calendars>(e => e.tablesId)
                 .IsRequired();
 
             modelBuilder
                 .Entity<Calendars>()
                 .HasOne(e => e.Table)
                 .WithOne(e => e.Calendar)
-                .HasForeignKey<Calendars>(e => e.tables_id)
+                .HasForeignKey<Calendars>(e => e.tablesId)
                 .IsRequired();
             // invoice /ticket
             modelBuilder
                 .Entity<Invoice>()
                 .HasOne(e => e.Ticket)
                 .WithOne(e => e.Invoice)
-                .HasForeignKey<Ticket>(e => e.invoice_id)
+                .HasForeignKey<Ticket>(e => e.invoiceId)
                 .IsRequired();
 
             modelBuilder
                 .Entity<Ticket>()
                 .HasOne(e => e.Invoice)
                 .WithOne(e => e.Ticket)
-                .HasForeignKey<Ticket>(e => e.invoice_id)
+                .HasForeignKey<Ticket>(e => e.invoiceId)
                 .IsRequired();
 
             modelBuilder.ApplyConfiguration(new UserMap());

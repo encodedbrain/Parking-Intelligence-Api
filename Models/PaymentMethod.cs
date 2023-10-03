@@ -4,11 +4,16 @@ namespace Parking_Intelligence_Api.Models
     {
         public PaymentMethod(string method)
         {
-            this.method = method;
+            method = method;
         }
-        public int id { get; private set; } 
-        public string method { get; private set; }
-        public int buy_id { get; private set; } 
+
+        public PaymentMethod()
+        {
+        }
+
+        public int id { get; private set; }
+        public string method { get; internal set; }
+        public int buyId { get; private set; } 
         public Buy Buy { get; private set; }
     }
 }

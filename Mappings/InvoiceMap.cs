@@ -26,7 +26,7 @@ namespace Parking_Intelligence_Api.Mappings
                 .Property(prop => prop.expense)
                 .HasColumnName("expense")
                 .HasColumnType("decimal(5,2)");
-            builder.Property(prop => prop.rest).HasColumnName("rest").HasColumnType("decimal(5,2)");
+            builder.Property(prop => prop.Change).HasColumnName("change").HasColumnType("decimal(5,2)");
             builder
                 .Property(prop => prop.stayTime)
                 .HasColumnName("stayTime")

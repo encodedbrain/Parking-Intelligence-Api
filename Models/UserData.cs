@@ -9,17 +9,17 @@ namespace Parking_Intelligence_Api.Models
         public UserData(string? fullName, string? cpf, string? address, string? phone)
         {
             this.fullName = fullName;
-            Cpf = cpf;
+            cpf = cpf;
             this.address = address;
             this.phone = phone;
         }
 
         public int id { get; set; }
         public string? fullName { get; internal set; }
-        public string? Cpf { get; internal set; }
+        public string? cpf { get; internal set; }
         public string? address { get; internal set; }
         public string? phone { get; internal set; }
-        public int user_id { get; internal set; }
+        public int userId { get; internal set; }
         public User User { get; internal set; }
     }
 }
