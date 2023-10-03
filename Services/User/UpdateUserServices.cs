@@ -21,7 +21,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var users = DB.Users.Where(u => u.UserData.user_id == User.id).FirstOrDefault();
+                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
 
                 if (users == null)
                     return false;
@@ -45,7 +45,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var users = DB.Users.Where(u => u.UserData.user_id == User.id).FirstOrDefault();
+                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
 
                 if (users == null)
                     return false;
@@ -70,7 +70,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var users = DB.Users.Where(x => x.UserData.user_id == User.id).FirstOrDefault();
+                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
 
                 if (users == null)
                     return false;
@@ -95,7 +95,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var users = DB.UserDatas.Where(x => x.user_id == User.id).FirstOrDefault();
+                var users = DB.UserDatas.Where(u => u.userId == User.id).FirstOrDefault();
 
                 if (users == null)
                     return false;
@@ -120,7 +120,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var users = DB.UserDatas.Where(x => x.user_id == User.id).FirstOrDefault();
+                var users = DB.UserDatas.Where(x => x.userId == User.id).FirstOrDefault();
 
                 if (users == null)
                     return false;
@@ -145,7 +145,7 @@ namespace Parking_Intelligence_Api.Services
                 if (User == null)
                     return false;
 
-                var userData = DB.UserDatas.Where(u => u.user_id == User.id).FirstOrDefault();
+                var userData = DB.UserDatas.Where(u => u.userId == User.id).FirstOrDefault();
 
                 if (userData == null)
                     return false;

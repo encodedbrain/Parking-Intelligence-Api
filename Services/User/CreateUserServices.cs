@@ -20,8 +20,8 @@ namespace Parking_Intelligence_Api.Services
             var searchingforUser = DB.Users.Any(
                 column =>
                     column.email == email
-                    || column.UserData.Cpf == cpf
-                    || column.UserData.phone == phone
+                    || column.userData.cpf == cpf
+                    || column.userData.phone == phone
             );
 
             return searchingforUser;
@@ -61,15 +61,15 @@ namespace Parking_Intelligence_Api.Services
                 Random rnd = new Random();
                 var User = new User
                 {
-                    nickname = user.nickname,
-                    password = userInstantiatesEntity.EncryptingPassword(user.password),
-                    email = user.email,
-                    UserData = new UserData
+                    nickname = user.Nickname,
+                    password = userInstantiatesEntity.EncryptingPassword(user.Password),
+                    email = user.Email,
+                    userData = new UserData
                     {
-                        address = user.address,
-                        Cpf = userInstantiatesEntity.ReturnCpfFormated(user.cpf),
+                        address = user.Address,
+                        cpf = userInstantiatesEntity.ReturnCpfFormated(user.Cpf),
                         fullName = user.Fullname,
-                        phone = user.phone
+                        phone = user.Phone
                     }
                 };
                 await context.AddAsync(User);
@@ -78,8 +78,8 @@ namespace Parking_Intelligence_Api.Services
                 var generateToken = ParkingServices.GenerateToken(User);
 
                 User.password = "";
-                User.UserData.Cpf = "";
-                User.UserData.address = "";
+                User.userData.cpf = "";
+                User.userData.address = "";
                 return new { User, generateToken };
             }
         }

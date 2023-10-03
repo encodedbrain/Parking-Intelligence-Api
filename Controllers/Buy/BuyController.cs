@@ -14,12 +14,12 @@ namespace Parking_Intelligence_Api.Controllers.Buy
         [Authorize]
         public async Task<IActionResult> Buy([FromBody] BuySchema purchase)
         {
-            BuyServices Buy = new BuyServices();
+            var Buy = new BuyServices();
 
-            var b = Buy.MakingPurchase(purchase);
-            
+            Buy.MakingPurchase(purchase);
 
-            return Ok("oi");
+            if (!Buy.ValidateCredentials(purchase)) return BadRequest("Unable to make purchase");
+            return Ok("Purchase made successfully, thank you and come back soon");
         }
     }
 }

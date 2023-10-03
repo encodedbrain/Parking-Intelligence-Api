@@ -16,10 +16,10 @@ namespace Parking_Intelligence_Api.Controllers
         {
             DeleteUserServices validate = new DeleteUserServices();
 
-            if (string.IsNullOrEmpty(user.email) || string.IsNullOrEmpty(user.password))
+            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.Password))
                 return BadRequest("invalid fields");
 
-            var deleteUser = await validate.SearchingForUser(user.email, user.password);
+            var deleteUser = await validate.SearchingForUser(user.Email, user.Password);
             if (!deleteUser)
                 return BadRequest("error, unable to execute the delete command");
 

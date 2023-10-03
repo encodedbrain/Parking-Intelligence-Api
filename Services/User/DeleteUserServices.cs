@@ -19,7 +19,7 @@ namespace Parking_Intelligence_Api.Services
 
             var ForeingkeyUser = DB.Users
                 .Where(u => u.password == User.EncryptingPassword(password) && u.email == email)
-                .Select(u => u.UserData.user_id)
+                .Select(u => u.userData.userId)
                 .ToArray();
 
             var idUser = DB.Users.Where(u => u.id == ForeingkeyUser[0]).Select(u => u.id).ToArray();
@@ -29,9 +29,9 @@ namespace Parking_Intelligence_Api.Services
             if (!userVerify || ForeingkeyUser == null || idUser == null || getUser == null)
                 return false;
 
-            var dataUser = DB.UserDatas.Where(u => u.user_id == idUser[0]);
-            var buyUser = DB.Buys.Where(b => b.user_id == idUser[0]);
-            var vehicleUser = DB.Vehicles.Where(v => v.user_id == idUser[0]);
+            var dataUser = DB.UserDatas.Where(u => u.userId == idUser[0]);
+            var buyUser = DB.Buys.Where(b => b.userId == idUser[0]);
+            var vehicleUser = DB.Vehicles.Where(v => v.userId == idUser[0]);
 
             foreach (var value in dataUser)
             {

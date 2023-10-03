@@ -18,17 +18,17 @@ namespace Parking_Intelligence_Api.Controllers
             if (user == null)
                 return BadRequest();
 
-            if (validate.searchingforUser(user.email, user.cpf, user.phone))
+            if (validate.searchingforUser(user.Email, user.Cpf, user.Phone))
                 return BadRequest("user already exists");
 
             if (
                 !validate.ValidateCredentials(
-                    user.email,
-                    user.nickname,
+                    user.Email,
+                    user.Nickname,
                     user.Fullname,
-                    user.cpf,
-                    user.phone,
-                    user.password
+                    user.Cpf,
+                    user.Phone,
+                    user.Password
                 )
             )
                 return BadRequest("to something wrong in one of the fields");
@@ -42,9 +42,9 @@ namespace Parking_Intelligence_Api.Controllers
         public IActionResult LoginUser([FromBody] LoginSchema user)
         {
             LoginServices validations = new LoginServices();
-            if (!validations.ValidateCredentials(user.email, user.password, user))
+            if (!validations.ValidateCredentials(user.Email, user.Password, user))
                 return BadRequest("invalid credentials");
-            var User = validations.ReturnUser(user.email, user.password);
+            var User = validations.ReturnUser(user.Email, user.Password);
             if (User == null)
                 return BadRequest();
             return Ok(User);
