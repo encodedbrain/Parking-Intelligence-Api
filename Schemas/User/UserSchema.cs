@@ -12,21 +12,21 @@ namespace Parking_Intelligence_Api.Schemas
             string phone
         )
         {
-            this.nickname = nickname;
-            this.email = email;
-            this.password = password;
-            this.address = address;
-            this.cpf = cpf;
+            this.Nickname = nickname;
+            this.Email = email;
+            this.Password = password;
+            this.Address = address;
+            this.Cpf = cpf;
             this.Fullname = fullname;
-            this.phone = phone;
+            this.Phone = phone;
         }
 
-        public string nickname { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public string address { get; set; }
-        public string cpf { get; set; }
+        public string Nickname { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string Address { get; set; }
+        public string Cpf { get; set; }
         public string Fullname { get; set; }
-        public string phone { get; private set; }
+        public string Phone { get; private set; }
     }
 }

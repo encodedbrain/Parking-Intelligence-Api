@@ -4,11 +4,11 @@ namespace Parking_Intelligence_Api.Schemas
     {
         public LoginSchema(string email, string password)
         {
-            this.email = email;
-            this.password = password;
+            this.Email = email;
+            this.Password = password;
         }
 
-        public string email { get; set; }
-        public string password { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

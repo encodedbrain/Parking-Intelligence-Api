@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Hx5wOcrTEeyM0LpEhOu9uUowhAWAP7U70SzG83mVSqdvIlyaduU8wyyQAtrs/tbt9VVPNb4mNkk3VH/NSZ3YMQ==",
+  "dgSpecHash": "O0ZywM1vM8n6mcMBgGe69FmjwJPKPPJByNhem3sRtbInjobNLUbKgNr8znk5nNGVi3n2XfuHeD6FLiJuIIHJgw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
+  "projectFilePath": "c:\\Users\\marco\\repos\\Parking-Intelligence-Api\\Parking-Intelligence-Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marco\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\marco\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
