@@ -1,53 +1,46 @@
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Models;
+using Parking_Intelligence_Api.Schemas;
 
-namespace Parking_Intelligence_Api.Services
+namespace Parking_Intelligence_Api.Services;
+
+public class DeleteUserServices
 {
-    public class DeleteUserServices
-    {
-        ParkingDB DB = new ParkingDB();
-        User User = new User();
+    private readonly User _user = new();
 
-        internal async Task<bool> SearchingForUser(string email, string password)
+    internal async Task<bool> SearchingForUser(LoginSchema prop)
+    {
+        using (var db = new ParkingDb())
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(prop.Email) || string.IsNullOrEmpty(prop.Password))
                 return false;
 
-            var userVerify = DB.Users.Any(
-                u => u.email == email && u.password == User.EncryptingPassword(password)
+            var userVerify = db.Users.Any(
+                user => user.Email == prop.Email && user.Password == _user.EncryptingPassword(prop.Password)
             );
 
-            var ForeingkeyUser = DB.Users
-                .Where(u => u.password == User.EncryptingPassword(password) && u.email == email)
-                .Select(u => u.userData.userId)
+            var foreingkeyUser = db.Users
+                .Where(user => user.Password == _user.EncryptingPassword(prop.Password) && user.Email == prop.Email)
+                .Select(u => u.UserData.UserId)
                 .ToArray();
 
-            var idUser = DB.Users.Where(u => u.id == ForeingkeyUser[0]).Select(u => u.id).ToArray();
+            var idUser = db.Users.Where(user => user.Id == foreingkeyUser[0]).Select(user => user.Id).ToArray();
 
-            var getUser = DB.Users.Find(idUser[0]);
+            var getUser = db.Users.Find(idUser[0]);
 
-            if (!userVerify || ForeingkeyUser == null || idUser == null || getUser == null)
+            if (!userVerify || getUser is null)
                 return false;
 
-            var dataUser = DB.UserDatas.Where(u => u.userId == idUser[0]);
-            var buyUser = DB.Buys.Where(b => b.userId == idUser[0]);
-            var vehicleUser = DB.Vehicles.Where(v => v.userId == idUser[0]);
+            var dataUser = db.UserDatas.Where(user => user.UserId == idUser[0]);
+            var buyUser = db.Buys.Where(buy => buy.UserId == idUser[0]);
+            var vehicleUser = db.Vehicles.Where(vehicle => vehicle.UserId == idUser[0]);
 
-            foreach (var value in dataUser)
-            {
-                DB.UserDatas.Remove(value);
-            }
-            foreach (var value in buyUser)
-            {
-                DB.Buys.Remove(value);
-            }
-            foreach (var value in vehicleUser)
-            {
-                DB.Vehicles.Remove(value);
-            }
+            foreach (var data in dataUser) db.UserDatas.Remove(data);
+            foreach (var buy in buyUser) db.Buys.Remove(buy);
+            foreach (var vehicle in vehicleUser) db.Vehicles.Remove(vehicle);
 
-            DB.Users.Remove(getUser);
-            await DB.SaveChangesAsync();
+            db.Users.Remove(getUser);
+            await db.SaveChangesAsync();
 
             return true;
         }

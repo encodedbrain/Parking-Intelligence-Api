@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,22 +8,23 @@ namespace Parking_Intelligence_Api.Models
 {
     public class User : IUser
     {
-        internal int account_id;
-
-        public User() { }
+        public User()
+        {
+        }
 
         public User(string email, string nickname, string password, int account_id)
         {
-            this.email = email;
-            this.nickname = nickname;
-            this.password = password;
+            this.Email = email;
+            this.Nickname = nickname;
+            this.Password = password;
         }
 
-        public int id { get; set; }
-        public string email { get; internal set; }
-        public string nickname { get; internal set; }
-        public string password { get; internal set; }
-        public virtual UserData userData { get; internal set; }
+        public int Id { get; set; }
+        public string Email { get; internal set; }
+        public string Nickname { get; internal set; }
+        public string Password { get; internal set; }
+        public virtual UserData UserData { get; internal set; }
+        [NotMapped]
         public virtual ICollection<Vehicle> Vehicles { get; internal set; }
         public virtual ICollection<Buy> Buys { get; internal set; }
 
@@ -190,10 +192,12 @@ namespace Parking_Intelligence_Api.Models
             {
                 return false;
             }
+
             if (name.Length > 30)
             {
                 return false;
             }
+
             return true;
         }
 

@@ -1,28 +1,34 @@
-namespace Parking_Intelligence_Api.Models
-{
-    public class Vehicle
-    {
-        public Vehicle(string model, string color, int year, string brand, int bodywork, string licensePlate, string species)
-        {
-            model = model;
-            color = color;
-            year = year;
-            brand = brand;
-            bodywork = bodywork;
-            licensePlate = licensePlate;
-            species = species;
-        }
-        
+namespace Parking_Intelligence_Api.Models;
 
-        public int id { get; private set; }
-        public string model { get; private set; }
-        public string color { get; private set; }
-        public int year { get; private set; }
-        public string brand { get; private set; }
-        public int bodywork { get; private set; }
-        public string licensePlate { get; private set; }
-        public string species { get; private set; }
-        public int userId { get; private set; }
-        public User User { get; private set; }
+public class Vehicle
+{
+    public Vehicle(int id, string model, string color, string name, int year, string brand, string licensePlate,
+        string species, int userId, User user)
+    {
+        Id = id;
+        Model = model;
+        Color = color;
+        Name = name;
+        Year = year;
+        Brand = brand;
+        LicensePlate = licensePlate;
+        Species = species;
+        UserId = userId;
+        User = user;
     }
+
+    public Vehicle()
+    {
+    }
+
+    public int Id { get; private set; }
+    public string Model { get; internal set; }
+    public string Color { get; internal set; }
+    public string Name { get; set; }
+    public int Year { get; internal set; }
+    public string Brand { get; internal set; }
+    public string LicensePlate { get; internal set; }
+    public string Species { get; internal set; }
+    public int UserId { get; internal set; }
+    public User User { get; internal set; }
 }

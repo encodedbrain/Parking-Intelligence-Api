@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Parking_Intelligence_Api.Models
 {
+    [NotMapped]
     public class Calendars
     {
         public Calendars()
@@ -7,12 +10,7 @@ namespace Parking_Intelligence_Api.Models
 
         }
 
-        public int id { get; private set; }
-
-
-
-        public DateTime date { get; set; }
-        public int tablesId { get; private set; }
-        public virtual Tables Table { get; private set; }
+        public int Id { get; private set; }
+        public DateTime Date { get; set; }
     }
 }

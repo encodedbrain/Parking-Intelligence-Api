@@ -8,6 +8,10 @@ namespace Parking_Intelligence_Api.Schemas
             this.Password = password;
         }
 
+        public LoginSchema()
+        {
+        }
+
         public string Email { get; set; }
         public string Password { get; set; }
     }

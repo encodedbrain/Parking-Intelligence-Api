@@ -25,10 +25,10 @@ namespace Parking_Intelligence_Api.Services
                         Subject = new ClaimsIdentity(
                             new[]
                             {
-                                new Claim(ClaimTypes.Name, users.password),
+                                new Claim(ClaimTypes.Name, users.Password),
                                 new Claim(
                                     ClaimTypes.Role,
-                                    users.password ?? throw new InvalidOperationException()
+                                    users.Password ?? throw new InvalidOperationException()
                                 )
                             }
                         ),

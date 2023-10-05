@@ -1,20 +1,25 @@
+namespace Parking_Intelligence_Api.Models;
 
-namespace Parking_Intelligence_Api.Models
+public class Tables
 {
-    public class Tables
+    public Tables()
     {
-        public int id { get; private set; }
+        Passengers = 20.00M;
+        Freight = 10.00M;
+        Mixed = 40.00M;
+    }
 
-        public Tables(decimal car, decimal motorcycle, decimal bus)
-        {
-            car = car;
-            motorcycle = motorcycle;
-            bus = bus;
-        }
+    public int Id { get; private set; }
+    public decimal Passengers { get; }
+    public decimal Freight { get; }
+    public decimal Mixed { get; }
 
-        public decimal car { get; private set; }
-        public decimal motorcycle { get; private set; }
-        public decimal bus { get; private set; }
-        public virtual Calendars Calendar { get; private set; }
+    public DateTime Dayofweek { get; set; }
+
+    public decimal informsTheValueOfTheVacancy(string type)
+    {
+        if (type == "passageiro") return Passengers;
+        if (type == "misto") return Mixed;
+        else return Freight;
     }
 }

@@ -4,25 +4,39 @@ namespace Parking_Intelligence_Api.Models
     {
         public Buy(decimal value, DateTime date, string vacancyType, Invoice invoice, PaymentMethod paymentMethod)
         {
-            this.value = value;
-            this.date = date;
-            this.vacancyType = vacancyType;
-            this.invoice = invoice;
-            this.paymentMethod = paymentMethod;
+            Value = value;
+            Date = date;
+            VacancyType = vacancyType;
+            Invoice = invoice;
+            PaymentMethod = paymentMethod;
         }
 
         public Buy()
         {
-            
         }
 
-        public int id { get; private set; }
-        public decimal value { get; internal set; }
-        public DateTime date { get; internal set; }
-        public string vacancyType { get; internal set; }
-        public virtual Invoice invoice { get; internal set; }
-        public virtual PaymentMethod paymentMethod { get; internal set; }
-        public int userId { get; internal set; }
+        public Buy(string vehicleIdentifier)
+        {
+            VehicleIdentifier = vehicleIdentifier;
+        }
+
+        public int Id { get; private set; }
+        public decimal Value { get; internal set; }
+
+        public string VehicleIdentifier { get; set; }
+        public DateTime Date { get; internal set; }
+        public string VacancyType { get; internal set; }
+        public virtual Invoice Invoice { get; internal set; }
+        public virtual PaymentMethod PaymentMethod { get; internal set; }
+        public int UserId { get; internal set; }
         public User User { get; internal set; }
+
+
+        public void ManagingVacancies(string type)
+        {
+            if (type == "rotativo")
+            {
+            }
+        }
     }
 }

@@ -3,23 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Schemas;
 using Parking_Intelligence_Api.Services;
 
-namespace Parking_Intelligence_Api.Controllers.Buy
+namespace Parking_Intelligence_Api.Controllers.Buy;
+
+[ApiController]
+[Route("v1")]
+public class BuyController : ControllerBase
 {
-    [ApiController]
-    [Route("v1")]
-    public class BuyController : ControllerBase
+    [HttpPost]
+    [Route("user/buy")]
+    [Authorize]
+    public Task<IActionResult> Buy([FromBody] BuySchema prop)
     {
-        [HttpPost]
-        [Route("user/buy")]
-        [Authorize]
-        public async Task<IActionResult> Buy([FromBody] BuySchema purchase)
-        {
-            var Buy = new BuyServices();
+        var buy = new BuyServices();
 
-            Buy.MakingPurchase(purchase);
+        buy.MakingPurchase(prop);
 
-            if (!Buy.ValidateCredentials(purchase)) return BadRequest("Unable to make purchase");
-            return Ok("Purchase made successfully, thank you and come back soon");
-        }
+        if (!buy.ValidateCredentials(prop)) return Task.FromResult<IActionResult>(BadRequest("Unable to make purchase"));
+        return Task.FromResult<IActionResult>(Ok("Purchase made successfully, thank you and come back soon"));
     }
 }

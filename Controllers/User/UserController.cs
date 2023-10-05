@@ -3,51 +3,48 @@ using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Schemas;
 using Parking_Intelligence_Api.Services;
 
-namespace Parking_Intelligence_Api.Controllers
+namespace Parking_Intelligence_Api.Controllers;
+
+[ApiController]
+[Route("v1")]
+public class UserController : ControllerBase
 {
-    [ApiController]
-    [Route("v1")]
-    public class UserController : ControllerBase
+    [HttpPost]
+    [Route("user/create")]
+    [AllowAnonymous]
+    public async Task<IActionResult> CreateUser([FromBody] UserSchema user)
     {
-        [HttpPost]
-        [Route("user/create")]
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateUser([FromBody] UserSchema user)
-        {
-            CreateUserServices validate = new CreateUserServices();
-            if (user == null)
-                return BadRequest();
+        var validate = new CreateUserServices();
 
-            if (validate.searchingforUser(user.Email, user.Cpf, user.Phone))
-                return BadRequest("user already exists");
+        if (validate.SearchingforUser(user.Email, user.Cpf, user.Phone))
+            return BadRequest("user already exists");
 
-            if (
-                !validate.ValidateCredentials(
-                    user.Email,
-                    user.Nickname,
-                    user.Fullname,
-                    user.Cpf,
-                    user.Phone,
-                    user.Password
-                )
+        if (
+            !validate.ValidateCredentials(
+                user.Email,
+                user.Nickname,
+                user.Fullname,
+                user.Cpf,
+                user.Phone,
+                user.Password
             )
-                return BadRequest("to something wrong in one of the fields");
+        )
+            return BadRequest("to something wrong in one of the fields");
 
-            return Ok(await validate.CreateNewUser(user));
-        }
+        return Ok(await validate.CreateNewUser(user));
+    }
 
-        [HttpPost]
-        [Route("login")]
-        [AllowAnonymous]
-        public IActionResult LoginUser([FromBody] LoginSchema user)
-        {
-            LoginServices validations = new LoginServices();
-            if (!validations.ValidateCredentials(user.Email, user.Password, user))
-                return BadRequest("invalid credentials");
-            var User = validations.ReturnUser(user.Email, user.Password);
-            if (User == null)
-                return BadRequest();
-            return Ok(User);
-        }
+    [HttpPost]
+    [Route("login")]
+    [AllowAnonymous]
+    public IActionResult LoginUser([FromBody] LoginSchema user)
+    {
+        var validations = new LoginServices();
+        if (!validations.ValidateCredentials(user))
+            return BadRequest("invalid credentials");
+        var userValidation = validations.ReturnUser(user);
+        if (userValidation is null)
+            return BadRequest("null user or invalid credentials");
+        return Ok(userValidation);
     }
 }

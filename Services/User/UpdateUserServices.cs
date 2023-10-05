@@ -1,207 +1,185 @@
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Models;
 
-namespace Parking_Intelligence_Api.Services
+namespace Parking_Intelligence_Api.Services;
+
+public class UpdateUserServices
 {
-    public class UpdateUserServices
+    readonly User _user = new User();
+
+    public bool UpdatePassword(string? value, User prop)
     {
-        ParkingDB DB = new ParkingDB();
-        User User = new User();
-        UserData UserData = new UserData();
-
-        public bool UpdatePassword(string? value, User getUser)
+        using (var db = new ParkingDb())
         {
-            if (getUser == null)
+            var gettingUserId = db.Users.Find(prop.Id);
+
+            if (gettingUserId is null)
                 return false;
 
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
+            var allUsers = db.Users.FirstOrDefault(user => user.UserData.UserId == gettingUserId.Id);
 
-                if (User == null)
-                    return false;
-
-                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
-
-                if (users == null)
-                    return false;
-
-                users.password = User.EncryptingPassword(value);
-
-                DB.Users.Update(users);
-                DB.SaveChangesAsync();
-                return true;
-            }
-        }
-
-        public bool UpdateEmail(string? value, User getUser)
-        {
-            if (getUser == null)
-                return false;
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
-
-                if (User == null)
-                    return false;
-
-                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
-
-                if (users == null)
-                    return false;
-
-                users.email = value;
-
-                DB.Users.Update(users);
-                DB.SaveChangesAsync();
-                return true;
-            }
-        }
-
-        public bool UpdateNickname(string? value, User getUser)
-        {
-            if (getUser == null)
+            if (allUsers is null)
                 return false;
 
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
+            allUsers.Password = _user.EncryptingPassword(value);
 
-                if (User == null)
-                    return false;
-
-                var users = DB.Users.Where(u => u.userData.userId == User.id).FirstOrDefault();
-
-                if (users == null)
-                    return false;
-
-                users.nickname = value;
-
-                DB.Users.Update(users);
-                DB.SaveChangesAsync();
-                return true;
-            }
+            db.Users.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
         }
+    }
 
-        public bool UpdateAddress(string? value, User getUser)
+    public bool UpdateEmail(string? value, User prop)
+    {
+        using (var db = new ParkingDb())
         {
-            if (getUser == null)
+            var gettingUserId = db.Users.Find(prop.Id);
+            if (gettingUserId is null) return false;
+            
+            var allUsers = db.Users.FirstOrDefault(user => user.UserData.UserId == gettingUserId.Id);
+
+            if (allUsers is null || value is null)
                 return false;
 
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
+            allUsers.Email = value;
 
-                if (User == null)
-                    return false;
-
-                var users = DB.UserDatas.Where(u => u.userId == User.id).FirstOrDefault();
-
-                if (users == null)
-                    return false;
-
-                users.address = value;
-
-                DB.UserDatas.Update(users);
-                DB.SaveChangesAsync();
-                return true;
-            }
+            db.Users.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
         }
+    }
 
-        public bool UpdatePhone(string? value, User getUser)
+    public bool UpdateNickname(string? value, User prop)
+    {
+        using (var db = new ParkingDb())
         {
-            if (getUser == null || !User.ValidatePhone(value))
+            var gettingUserId = db.Users.Find(prop.Id);
+            
+            if (gettingUserId is null) return false;
+            
+            var allUsers = db.Users.FirstOrDefault(user => user.UserData.UserId == gettingUserId.Id);
+
+            if (allUsers is null || value is null)
                 return false;
 
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
+            allUsers.Nickname = value;
 
-                if (User == null)
-                    return false;
-
-                var users = DB.UserDatas.Where(x => x.userId == User.id).FirstOrDefault();
-
-                if (users == null)
-                    return false;
-
-                users.phone = value;
-
-                DB.UserDatas.Update(users);
-                DB.SaveChangesAsync();
-                return true;
-            }
+            db.Users.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
         }
+    }
 
-        public bool UpdateFullname(string? value, User getUser)
+    public bool UpdateAddress(string? value, User prop)
+    {
+
+        using (var db = new ParkingDb())
         {
-            if (getUser == null || !User.ValidateName(value))
+            var gettingUserId = db.Users.Find(prop.Id);
+            
+            if (gettingUserId is null) return false;
+            
+            var allUsers = db.UserDatas.FirstOrDefault(user => user.UserId == gettingUserId.Id);
+
+            if (allUsers is null || value is null)
                 return false;
 
-            using (var DB = new ParkingDB())
-            {
-                var User = DB.Users.Find(getUser.id);
+            allUsers.Address = value;
 
-                if (User == null)
-                    return false;
-
-                var userData = DB.UserDatas.Where(u => u.userId == User.id).FirstOrDefault();
-
-                if (userData == null)
-                    return false;
-
-                userData.fullName = value;
-
-                DB.UserDatas.Update(userData);
-                DB.SaveChangesAsync();
-                return true;
-            }
+            db.UserDatas.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
         }
+    }
 
-        internal bool VerifyCredentials(
-            string? fieldEdit,
-            string? password,
-            string? email,
-            string? value
+    public bool UpdatePhone(string? value, User prop)
+    {
+        using (var db = new ParkingDb())
+        {
+            var gettingUserId = db.Users.Find(prop.Id);
+
+            if (gettingUserId is null) return false;
+            
+            var allUsers = db.UserDatas.FirstOrDefault(user => user.UserId == gettingUserId.Id);
+
+            if (allUsers is null ||  value is null || !_user.ValidatePhone(value))
+                return false;
+
+            allUsers.Phone = value;
+
+            db.UserDatas.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
+        }
+    }
+
+    public bool UpdateFullname(string? value, User prop)
+    {
+        using (var db = new ParkingDb())
+        {
+            var gettingUserId = db.Users.Find(prop.Id);
+            
+            if (gettingUserId is null) return false;
+            
+            var allUsers = db.UserDatas.FirstOrDefault(user => user.UserId == gettingUserId.Id);
+
+            if (allUsers is null ||  value is null || !_user.ValidateName(value))
+                return false;
+
+            allUsers.FullName = value;
+
+            db.UserDatas.Update(allUsers);
+            db.SaveChangesAsync();
+            return true;
+        }
+    }
+
+    internal bool VerifyCredentials(
+        string? fieldEdit,
+        string? password,
+        string? email,
+        string? value
+    )
+    {
+        if (
+            string.IsNullOrEmpty(fieldEdit)
+            || string.IsNullOrEmpty(password)
+            || string.IsNullOrEmpty(email)
+            || string.IsNullOrEmpty(value)
+            || !_user.ValidatePassword(password)
+            || !_user.VaLidateEmail(email)
         )
+            return false;
+        using (var db = new ParkingDb())
         {
-            if (
-                string.IsNullOrEmpty(fieldEdit)
-                || string.IsNullOrEmpty(password)
-                || string.IsNullOrEmpty(email)
-                || string.IsNullOrEmpty(value)
-                || !User.ValidatePassword(password)
-                || !User.VaLidateEmail(email)
-            )
-                return false;
-
-            var getUser = DB.Users.FirstOrDefault(
-                u => u.password == User.EncryptingPassword(password) && u.email == email
+            var gettingUser = db.Users.FirstOrDefault(
+                user => user.Password == _user.EncryptingPassword(password) && user.Email == email
             );
 
-            if(getUser == null) return false;
+            if (gettingUser is null) return false;
 
             switch (fieldEdit)
             {
                 case "password":
-                    UpdatePassword(value, getUser);
+                    UpdatePassword(value, gettingUser);
                     break;
                 case "email":
-                    UpdateEmail(value, getUser);
+                    UpdateEmail(value, gettingUser);
                     break;
                 case "nickname":
-                    UpdateNickname(value, getUser);
+                    UpdateNickname(value, gettingUser);
                     break;
                 case "address":
-                    UpdateAddress(value, getUser);
+                    UpdateAddress(value, gettingUser);
                     break;
                 case "phone":
-                    UpdatePhone(value, getUser);
+                    UpdatePhone(value, gettingUser);
                     break;
                 case "fullname":
-                    UpdateFullname(value, getUser);
+                    UpdateFullname(value, gettingUser);
                     break;
             }
+
             ;
 
             return true;

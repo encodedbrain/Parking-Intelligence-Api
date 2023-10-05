@@ -1,106 +1,105 @@
-using System.Globalization;
-using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Models;
 using Parking_Intelligence_Api.Schemas;
-using ZstdSharp.Unsafe;
 
 namespace Parking_Intelligence_Api.Services;
 
-public class BuyServices
+public class BuyServices : Tables
 {
-    internal bool ValidateCredentials(BuySchema purchase)
+    private readonly User _user = new();
+
+    internal bool ValidateCredentials(BuySchema prop)
     {
-        using (var db = new ParkingDB())
+        using (var db = new ParkingDb())
         {
-            var getIdUser = db.Users.FirstOrDefault(
-                u => u.password == new User().EncryptingPassword(purchase.Password) && u.email == purchase.Email
+            var gettingUserId = db.Users.FirstOrDefault(
+                user => user.Password == _user.EncryptingPassword(prop.Password) && user.Email == prop.Email
             );
-            if (getIdUser == null) return false;
+            if (gettingUserId is null) return false;
         }
 
         return true;
     }
-    public void MakingPurchase(BuySchema purchase)
+
+    public void MakingPurchase(BuySchema prop)
     {
-        using (var db = new ParkingDB())
+        using (var db = new ParkingDb())
         {
-            var User = new User();
-
-            var getIdUser = db.Users.FirstOrDefault(
-                u => u.password == User.EncryptingPassword(purchase.Password) && u.email == purchase.Email
+            var gettingUserId = db.Users.FirstOrDefault(
+                user => user.Password == _user.EncryptingPassword(prop.Password) && user.Email == prop.Email
             );
+            if (gettingUserId is null) return;
 
-            if (getIdUser == null) return;
-
-            var findUserOfId = db.Users.Find(getIdUser.id);
+            var findUserOfId = db.Users.Find(gettingUserId.Id);
 
             if (findUserOfId == null) return;
 
-            var users = db.Users.Where(u => u.userData.userId == findUserOfId.id).FirstOrDefault();
+            var allUsers = db.Users.FirstOrDefault(user => user.UserData.UserId == findUserOfId.Id);
 
-            if (users == null)
+            if (allUsers is null)
                 return;
-            users.Buys = new List<Buy>()
+            allUsers.Buys = new List<Buy>()
             {
                 new()
                 {
-                    date = DateTime.Now,
-                    vacancyType = formatVacancyType(purchase.VacancyType),
-                    value = purchase.Value,
-                    paymentMethod = new PaymentMethod()
+                    Date = DateTime.Now,
+                    VacancyType = prop.VacancyType,
+                    Value = informsTheValueOfTheVacancy(prop.Species),
+                    VehicleIdentifier = prop.LicensePlate,
+                    PaymentMethod = new PaymentMethod()
                     {
-                        method = purchase.Method
+                        Method = prop.Method
                     },
-                    invoice = new Invoice()
+                    Invoice = new Invoice()
                     {
-                        expense = purchase.Value,
-                        amountPaid = purchase.AmountPaid,
-                        Change = changeToRreceive(purchase.Value, purchase.AmountPaid),
-                        dateEntry = DateTime.Now,
-                        departureDate = DateTime.Now,
-                        stayTime = DateTime.Now,
-                        ticketNumber = generateCredential(),
+                        Expense = prop.Value,
+                        AmountPaid = prop.AmountPaid,
+                        Change = ChangeToRreceive(prop.Value, prop.AmountPaid),
+                        DateEntry = DateTime.Now,
+                        DepartureDate = DateTime.Now,
+                        StayTime = DateTime.Now,
+                        TicketNumber = GenerateCredential(),
                         Ticket = new Ticket()
                         {
-                            date = DateTime.Now,
-                            ticketNumber = generateCredential(),
-                            sequence = generateCredential(),
-                            hour = formatTime()
+                            Date = DateTime.Now,
+                            TicketNumber = GenerateCredential(),
+                            Sequence = GenerateCredential(),
+                            Hour = FormatTime()
                         }
                     }
                 }
             };
-            db.Users.Update(users);
+            allUsers.Vehicles = new List<Vehicle>()
+            {
+                new()
+                {
+                    Species = prop.Species,
+                    Brand = prop.Brand,
+                    Color = prop.Color,
+                    Model = prop.Model,
+                    Year = prop.Year,
+                    LicensePlate = prop.LicensePlate,
+                    Name = prop.Name
+                }
+            };
+            db.Users.Update(allUsers);
             db.SaveChanges();
         }
     }
 
-    private int generateCredential()
+    private int GenerateCredential()
     {
         return new Random().Next();
     }
 
-    private string formatTime()
+    private string FormatTime()
     {
         var date = DateTime.Now;
         return $"{date:hh:mm:ss}";
     }
 
-    private string formatVacancyType(string type)
-    {
-        var rotary = "rotary";
-        var monthlyPayer = "monthly payer";
 
-        if (string.IsNullOrEmpty(type)) return string.Empty;
-        if (type == "rotativo" || type == "rotary") return rotary;
-        ;
-        if (type == "mensalista" || type == "monthly payer") return monthlyPayer;
-
-        return string.Empty;
-    }
-
-    private decimal changeToRreceive(decimal purchaseExpense, decimal purchaseAmountPaid)
+    private decimal ChangeToRreceive(decimal purchaseExpense, decimal purchaseAmountPaid)
     {
         var change = purchaseAmountPaid - purchaseExpense;
 

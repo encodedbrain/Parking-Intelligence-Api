@@ -6,38 +6,33 @@ namespace Parking_Intelligence_Api.Services
 {
     public class LoginServices
     {
-        ParkingDB DB = new ParkingDB();
-        User users = new User();
-
-        internal object ReturnUser(string? email, string? password)
+        private User _user = new User();
+        internal object? ReturnUser(LoginSchema prop
+        )
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
-                return $"{false} -  email ou password vazios";
-            var userVerify = DB.Users.Any(
-                u => u.email == email && u.password == users.EncryptingPassword(password)
-            );
-            var user = DB.Users.SingleOrDefault(
-                u => u.email == email && u.password == users.EncryptingPassword(password)
-            );
-
-            if (!userVerify && user == null)
-                return $"{false} -  user null ou userverify";
-
-            if (user != null)
+            using (var db = new ParkingDb())
             {
-                var token = ParkingServices.GenerateToken(user);
-                user.password = string.Empty;
+                var gettingUser = db.Users.SingleOrDefault(
+                    user => user.Email == prop.Email && user.Password == _user.EncryptingPassword(prop.Password)
+                );
 
-                return new { user, token };
+                if (gettingUser is null)
+                    return null;
+
+
+                var token = ParkingServices.GenerateToken(gettingUser);
+                gettingUser.Password = string.Empty;
+
+                return new { gettingUser, token };
             }
-            return true;
+                
         }
 
-        internal bool ValidateCredentials(string email, string password, LoginSchema user)
+        internal bool ValidateCredentials(LoginSchema prop)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(prop.Email) || string.IsNullOrEmpty(prop.Password))
                 return false;
-            if (!users.ValidatePassword(password) || !users.VaLidateEmail(email))
+            if (!new User().ValidatePassword(prop.Password) || !new User().VaLidateEmail(prop.Email))
                 return false;
 
             return true;

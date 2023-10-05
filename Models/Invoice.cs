@@ -12,12 +12,12 @@ namespace Parking_Intelligence_Api.Models
             decimal change
         )
         {
-            this.ticketNumber = ticketNumber;
-            this.dateEntry = dateEntry;
-            this.departureDate = departureDate;
-            this.stayTime = stayTime;
-            this.amountPaid = amountPaid;
-            this.expense = expense;
+            this.TicketNumber = ticketNumber;
+            this.DateEntry = dateEntry;
+            this.DepartureDate = departureDate;
+            this.StayTime = stayTime;
+            this.AmountPaid = amountPaid;
+            this.Expense = expense;
             this.Change = change;
         }
 
@@ -25,14 +25,14 @@ namespace Parking_Intelligence_Api.Models
         {
         }
 
-        public int id { get; private set; }
-        public int ticketNumber { get; internal set; }
-        public DateTime dateEntry { get; internal set; }
-        public DateTime departureDate { get; internal set; }
-        public DateTime stayTime { get; internal set; }
-        public decimal amountPaid { get; internal set; }
-        public decimal expense { get; internal set; }
-        public int buyId { get; private set; }
+        public int Id { get; private set; }
+        public int TicketNumber { get; internal set; }
+        public DateTime DateEntry { get; internal set; }
+        public DateTime DepartureDate { get; internal set; }
+        public DateTime StayTime { get; internal set; }
+        public decimal AmountPaid { get; internal set; }
+        public decimal Expense { get; internal set; }
+        public int BuyId { get; private set; }
         public virtual Buy Buy { get; private set; }
         public virtual Ticket Ticket { get; internal set; }
         public decimal Change { get; set; }
