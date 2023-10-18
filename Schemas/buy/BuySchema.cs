@@ -1,10 +1,12 @@
 
 
-namespace Parking_Intelligence_Api.Schemas
+namespace Parking_Intelligence_Api.Schemas.buy
 {
     public class BuySchema : VehicleSchema
     {
-        public BuySchema(string model, string color, int year, string brand, string licensePlate, string species, string name, decimal value, string email, string password, string vacancyType, decimal amountPaid, string method) : base(model, color, year, brand, licensePlate, species, name)
+        public BuySchema(string model, string color, int year, string brand, string licensePlate, string species,
+            string name, decimal value, string email, string password, string vacancyType, decimal amountPaid,
+            string method) : base(model, color, year, brand, licensePlate, species, name)
         {
             Value = value;
             Email = email;
