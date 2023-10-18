@@ -1,12 +1,13 @@
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Models;
 using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.buy;
 
-namespace Parking_Intelligence_Api.Services;
+namespace Parking_Intelligence_Api.Services.Buy;
 
 public class BuyServices : Tables
 {
-    private readonly User _user = new();
+    private readonly Models.User _user = new();
 
     internal bool ValidateCredentials(BuySchema prop)
     {
@@ -21,28 +22,28 @@ public class BuyServices : Tables
         return true;
     }
 
-    public void MakingPurchase(BuySchema prop)
+    public bool MakingPurchase(BuySchema prop)
     {
         using (var db = new ParkingDb())
         {
             var gettingUserId = db.Users.FirstOrDefault(
                 user => user.Password == _user.EncryptingPassword(prop.Password) && user.Email == prop.Email
             );
-            if (gettingUserId is null) return;
+            if (gettingUserId is null) return false;
 
             var findUserOfId = db.Users.Find(gettingUserId.Id);
 
-            if (findUserOfId == null) return;
+            if (findUserOfId == null) return false;
 
             var allUsers = db.Users.FirstOrDefault(user => user.UserData.UserId == findUserOfId.Id);
 
             if (allUsers is null)
-                return;
-            allUsers.Buys = new List<Buy>()
+                return false;
+            allUsers.Buys = new List<Models.Buy>()
             {
                 new()
                 {
-                    Date = DateTime.Now,
+                    Date = DateTime.Now.ToString("d"),
                     VacancyType = prop.VacancyType,
                     Value = informsTheValueOfTheVacancy(prop.Species),
                     VehicleIdentifier = prop.LicensePlate,
@@ -55,10 +56,11 @@ public class BuyServices : Tables
                         Expense = prop.Value,
                         AmountPaid = prop.AmountPaid,
                         Change = ChangeToRreceive(prop.Value, prop.AmountPaid),
-                        DateEntry = DateTime.Now,
+                        DateEntry = FormatTime(),
                         DepartureDate = DateTime.Now,
-                        StayTime = DateTime.Now,
+                        StayTime = "",
                         TicketNumber = GenerateCredential(),
+                        LimitTime = VacancyTypeCheck(prop.VacancyType),
                         Ticket = new Ticket()
                         {
                             Date = DateTime.Now,
@@ -69,7 +71,7 @@ public class BuyServices : Tables
                     }
                 }
             };
-            allUsers.Vehicles = new List<Vehicle>()
+            allUsers.Vehicles = new List<Models.Vehicle>()
             {
                 new()
                 {
@@ -79,12 +81,15 @@ public class BuyServices : Tables
                     Model = prop.Model,
                     Year = prop.Year,
                     LicensePlate = prop.LicensePlate,
+                    Status = "estacionado",
                     Name = prop.Name
                 }
             };
             db.Users.Update(allUsers);
             db.SaveChanges();
         }
+
+        return true;
     }
 
     private int GenerateCredential()
@@ -95,7 +100,7 @@ public class BuyServices : Tables
     private string FormatTime()
     {
         var date = DateTime.Now;
-        return $"{date:hh:mm:ss}";
+        return date.ToString("t");
     }
 
 
@@ -104,5 +109,19 @@ public class BuyServices : Tables
         var change = purchaseAmountPaid - purchaseExpense;
 
         return change;
+    }
+
+    private string VacancyTypeCheck(string vacancy)
+    {
+        var hour = DateTime.Now;
+
+        if (vacancy == "rotativo")
+        {
+            var add = hour.AddHours(2).ToString("t");
+            return add;
+        }
+
+
+        return hour.AddMonths(1).ToString("d");
     }
 }

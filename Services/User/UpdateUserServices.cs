@@ -1,13 +1,12 @@
 using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Models;
 
-namespace Parking_Intelligence_Api.Services;
+namespace Parking_Intelligence_Api.Services.User;
 
 public class UpdateUserServices
 {
-    readonly User _user = new User();
+    readonly Models.User _user = new Models.User();
 
-    public bool UpdatePassword(string? value, User prop)
+    public bool UpdatePassword(string? value, Models.User prop)
     {
         using (var db = new ParkingDb())
         {
@@ -29,7 +28,7 @@ public class UpdateUserServices
         }
     }
 
-    public bool UpdateEmail(string? value, User prop)
+    public bool UpdateEmail(string? value, Models.User prop)
     {
         using (var db = new ParkingDb())
         {
@@ -49,7 +48,7 @@ public class UpdateUserServices
         }
     }
 
-    public bool UpdateNickname(string? value, User prop)
+    public bool UpdateNickname(string? value, Models.User prop)
     {
         using (var db = new ParkingDb())
         {
@@ -70,7 +69,7 @@ public class UpdateUserServices
         }
     }
 
-    public bool UpdateAddress(string? value, User prop)
+    public bool UpdateAddress(string? value, Models.User prop)
     {
 
         using (var db = new ParkingDb())
@@ -92,7 +91,7 @@ public class UpdateUserServices
         }
     }
 
-    public bool UpdatePhone(string? value, User prop)
+    public bool UpdatePhone(string? value, Models.User prop)
     {
         using (var db = new ParkingDb())
         {
@@ -113,7 +112,7 @@ public class UpdateUserServices
         }
     }
 
-    public bool UpdateFullname(string? value, User prop)
+    public bool UpdateFullname(string? value, Models.User prop)
     {
         using (var db = new ParkingDb())
         {
@@ -180,7 +179,7 @@ public class UpdateUserServices
                     break;
             }
 
-            ;
+            
 
             return true;
         }

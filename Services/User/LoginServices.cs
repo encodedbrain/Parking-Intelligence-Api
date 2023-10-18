@@ -1,12 +1,11 @@
 using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Models;
 using Parking_Intelligence_Api.Schemas;
 
-namespace Parking_Intelligence_Api.Services
+namespace Parking_Intelligence_Api.Services.User
 {
     public class LoginServices
     {
-        private User _user = new User();
+        private Models.User _user = new Models.User();
         internal object? ReturnUser(LoginSchema prop
         )
         {
@@ -32,7 +31,7 @@ namespace Parking_Intelligence_Api.Services
         {
             if (string.IsNullOrEmpty(prop.Email) || string.IsNullOrEmpty(prop.Password))
                 return false;
-            if (!new User().ValidatePassword(prop.Password) || !new User().VaLidateEmail(prop.Email))
+            if (!new Models.User().ValidatePassword(prop.Password) || !new Models.User().VaLidateEmail(prop.Email))
                 return false;
 
             return true;

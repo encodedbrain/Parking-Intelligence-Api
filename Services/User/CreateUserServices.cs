@@ -2,11 +2,11 @@ using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Models;
 using Parking_Intelligence_Api.Schemas;
 
-namespace Parking_Intelligence_Api.Services;
+namespace Parking_Intelligence_Api.Services.User;
 
 public class CreateUserServices
 {
-    private User _user = new();
+    private Models.User _user = new();
 
     internal bool SearchingforUser(string email, string cpf, string phone)
     {
@@ -60,8 +60,7 @@ public class CreateUserServices
     {
         using (var db = new ParkingDb())
         {
-            var rnd = new Random();
-            var user = new User
+            var user = new Models.User
             {
                 Nickname = prop.Nickname,
                 Password = _user.EncryptingPassword(prop.Password),
@@ -82,7 +81,7 @@ public class CreateUserServices
             user.Password = "";
             user.UserData.Cpf = "";
             user.UserData.Address = "";
-            return new { user, generateToken };
+            return new { User = user, generateToken };
         }
     }
 }

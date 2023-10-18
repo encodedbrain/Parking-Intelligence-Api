@@ -1,8 +1,7 @@
 ﻿using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Models;
 using Parking_Intelligence_Api.Schemas;
 
-namespace Parking_Intelligence_Api.Services;
+namespace Parking_Intelligence_Api.Services.Buy;
 
 public class BuysUserServices
 {
@@ -12,7 +11,7 @@ public class BuysUserServices
         {
             var user = db.Users
                 .Where(user =>
-                    user.Email == prop.Email && user.Password == new User().EncryptingPassword(prop.Password)).Select(
+                    user.Email == prop.Email && user.Password == new Models.User().EncryptingPassword(prop.Password)).Select(
                     user => new
                     {
                         User = user,

@@ -1,9 +1,9 @@
 ﻿using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.Schemas;
 
-namespace Parking_Intelligence_Api.Services;
+namespace Parking_Intelligence_Api.Services.Vehicle;
 
-public class DeleteVehiclesServices 
+public class DeleteVehiclesServices
 {
     public async Task<bool> DeleteVehiclesService(DeleteVehicleSchema prop)
     {
@@ -12,18 +12,17 @@ public class DeleteVehiclesServices
             var user = db.Users.FirstOrDefault(user => user.Email == prop.Email
                                                        && user.Password == prop.Password);
 
-
-            var vehicle = db.Vehicles.FirstOrDefault(vehicle => vehicle.LicensePlate == prop.LicensePlate);
-
-
-            var buy = db.Buys.FirstOrDefault(buy => buy.VehicleIdentifier == prop.LicensePlate);
+            if (user is null) return false;
+            var vehicle = db.Vehicles.Where(vehicle =>
+                vehicle.LicensePlate == prop.LicensePlate && vehicle.UserId == user.Id);
 
 
-            if (vehicle is null || buy is null) return false;
+            var buy = db.Buys.Where(buy => buy.VehicleIdentifier == prop.LicensePlate && buy.UserId == user.Id);
 
+            foreach (var value in vehicle) db.Vehicles.Remove(value);
 
-            db.Vehicles.Remove(vehicle);
-            db.Buys.Remove(buy);
+            foreach (var value in buy) db.Buys.Remove(value);
+
 
             await db.SaveChangesAsync();
 

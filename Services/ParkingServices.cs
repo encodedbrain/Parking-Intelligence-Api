@@ -2,13 +2,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Parking_Intelligence_Api.Models;
 
 namespace Parking_Intelligence_Api.Services
 {
     public class ParkingServices
     {
-        public static object GenerateToken(User users)
+        public static object GenerateToken(Models.User users)
         {
             var builder = WebApplication.CreateBuilder();
 
