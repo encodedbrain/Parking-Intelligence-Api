@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,7 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+
         <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.31.0" />
@@ -33,6 +34,23 @@
     <Compile Remove="Services\Vehicle\CreateVehicleServices.cs" />
     <Compile Remove="Mappings\CalendarMap.cs" />
     <Compile Remove="interfaces\IDataUser.cs" />
+    <Compile Remove="Services\HostedServices\**" />
+    <Compile Remove="Services\ParkedTime\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Services\HostedServices\**" />
+    <EmbeddedResource Remove="Services\ParkedTime\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Services\HostedServices\**" />
+    <Content Remove="Services\ParkedTime\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Services\HostedServices\**" />
+    <None Remove="Services\ParkedTime\**" />
   </ItemGroup>
 
 </Project>

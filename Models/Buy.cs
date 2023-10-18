@@ -2,7 +2,7 @@ namespace Parking_Intelligence_Api.Models
 {
     public class Buy
     {
-        public Buy(decimal value, DateTime date, string vacancyType, Invoice invoice, PaymentMethod paymentMethod)
+        public Buy(decimal value, string date, string vacancyType, Invoice invoice, PaymentMethod paymentMethod)
         {
             Value = value;
             Date = date;
@@ -24,19 +24,12 @@ namespace Parking_Intelligence_Api.Models
         public decimal Value { get; internal set; }
 
         public string VehicleIdentifier { get; set; }
-        public DateTime Date { get; internal set; }
+        public string Date { get; internal set; }
         public string VacancyType { get; internal set; }
         public virtual Invoice Invoice { get; internal set; }
         public virtual PaymentMethod PaymentMethod { get; internal set; }
         public int UserId { get; internal set; }
         public User User { get; internal set; }
-
-
-        public void ManagingVacancies(string type)
-        {
-            if (type == "rotativo")
-            {
-            }
-        }
+        
     }
 }

@@ -29,6 +29,10 @@ public class VehicleMap : IEntityTypeConfiguration<Vehicle>
             .HasColumnName("model")
             .HasColumnType("varchar(100)");
         builder
+            .Property(prop => prop.Status)
+            .HasColumnName("status")
+            .HasColumnType("varchar(15)");
+        builder
             .Property(prop => prop.Species)
             .HasColumnName("species")
             .HasColumnType("varchar(100)");

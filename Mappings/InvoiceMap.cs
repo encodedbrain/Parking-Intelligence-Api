@@ -21,7 +21,7 @@ public class InvoiceMap : IEntityTypeConfiguration<Invoice>
         builder
             .Property(prop => prop.DepartureDate)
             .HasColumnName("departureDate")
-            .HasColumnType("varchar(100)");
+            .HasColumnType("datetime");
         builder
             .Property(prop => prop.Expense)
             .HasColumnName("expense")
@@ -30,7 +30,7 @@ public class InvoiceMap : IEntityTypeConfiguration<Invoice>
         builder
             .Property(prop => prop.StayTime)
             .HasColumnName("stayTime")
-            .HasColumnType("varchar(100)");
+            .HasColumnType("varchar(20)");
         builder
             .Property(prop => prop.TicketNumber)
             .HasColumnName("ticketNumber")

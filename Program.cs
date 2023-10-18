@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Parking_Intelligence_Api.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
