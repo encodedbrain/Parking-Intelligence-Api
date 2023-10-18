@@ -5,22 +5,22 @@ using Parking_Intelligence_Api.Services.Vehicle;
 
 namespace Parking_Intelligence_Api.Controllers.Vehicle;
 
+
 [ApiController]
 [Route("v1")]
-public class ListVehiclesController : ControllerBase
-
+public class VehicleUpdateController : ControllerBase
 {
-    [HttpGet]
-    [Route("user/vehicles")]
+    [HttpPut]
+    [Route("vehicle/update")]
     [Authorize]
-    public Task<IActionResult> GetVehicles([FromQuery] LoginSchema user)
+    public Task<IActionResult> VehicleUpdate([FromBody] DeleteVehicleSchema prop , [FromQuery] string vacancy)
     {
-        var services = new VehiclesUserServices();
-        
-        var status = services.GetVehicles(user);
+        var service = new VehicleUpdateService();
+
+        var status = service.VehicleUpdate(prop,vacancy).Result;
 
         if (status is false) return Task.FromResult<IActionResult>(NotFound("something wrong, maybe this vehicle doesn't exist"));
-        
-        return Task.FromResult<IActionResult>(Ok(status));
+
+        return Task.FromResult<IActionResult>(Ok("vehicle successfully update"));
     }
 }

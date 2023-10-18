@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Schemas;
-using Parking_Intelligence_Api.Services;
+using Parking_Intelligence_Api.Schemas.buy;
+using Parking_Intelligence_Api.Services.Buy;
 
 namespace Parking_Intelligence_Api.Controllers.Buy;
 
@@ -14,11 +15,11 @@ public class BuyController : ControllerBase
     [Authorize]
     public Task<IActionResult> Buy([FromBody] BuySchema prop)
     {
-        var buy = new BuyServices();
+        var service = new BuyServices();
 
-        buy.MakingPurchase(prop);
+        var status = service.MakingPurchase(prop);
 
-        if (!buy.ValidateCredentials(prop)) return Task.FromResult<IActionResult>(BadRequest("Unable to make purchase"));
+        if (status is false) return Task.FromResult<IActionResult>(BadRequest("Unable to make purchase"));
         return Task.FromResult<IActionResult>(Ok("Purchase made successfully, thank you and come back soon"));
     }
 }

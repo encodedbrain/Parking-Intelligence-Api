@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Schemas;
-using Parking_Intelligence_Api.Services;
+using Parking_Intelligence_Api.Services.User;
 
-namespace Parking_Intelligence_Api.Controllers;
+namespace Parking_Intelligence_Api.Controllers.User;
 
 [ApiController]
 [Route("v1")]
@@ -14,13 +14,13 @@ public class UserController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> CreateUser([FromBody] UserSchema user)
     {
-        var validate = new CreateUserServices();
+        var service = new CreateUserServices();
 
-        if (validate.SearchingforUser(user.Email, user.Cpf, user.Phone))
+        if (service.SearchingforUser(user.Email, user.Cpf, user.Phone))
             return BadRequest("user already exists");
 
         if (
-            !validate.ValidateCredentials(
+            !service.ValidateCredentials(
                 user.Email,
                 user.Nickname,
                 user.Fullname,
@@ -31,7 +31,7 @@ public class UserController : ControllerBase
         )
             return BadRequest("to something wrong in one of the fields");
 
-        return Ok(await validate.CreateNewUser(user));
+        return Ok(await service.CreateNewUser(user));
     }
 
     [HttpPost]

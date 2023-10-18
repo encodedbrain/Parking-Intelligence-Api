@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Parking_Intelligence_Api.Schemas;
-using Parking_Intelligence_Api.Services;
+using Parking_Intelligence_Api.Services.Buy;
 
 namespace Parking_Intelligence_Api.Controllers.Buy;
 
@@ -12,14 +12,14 @@ public class BuyUserController : ControllerBase
     [HttpGet]
     [Route("user/buys")]
     [Authorize]
-    public async Task<IActionResult> ListingAllBuys([FromQuery] LoginSchema prop)
+    public Task<IActionResult> ListingAllBuys([FromQuery] LoginSchema prop)
     {
         var services = new BuysUserServices();
 
-        var buys = services.ListingPurchases(prop);
+        var status = services.ListingPurchases(prop);
 
-        if (buys is null) return NotFound("error, unable to execute the delete command");
+        if (status is null) return Task.FromResult<IActionResult>(NotFound("error, unable to execute the get command"));
 
-        return Ok(buys);
+        return Task.FromResult<IActionResult>(Ok(status));
     }
 }
