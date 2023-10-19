@@ -28,7 +28,6 @@
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.31.0" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.31.0" />
-    <PackageReference Include="xunit" Version="2.5.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +51,10 @@
   <ItemGroup>
     <None Remove="Services\HostedServices\**" />
     <None Remove="Services\ParkedTime\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
 
 </Project>
