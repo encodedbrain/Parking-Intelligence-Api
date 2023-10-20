@@ -2,7 +2,7 @@ namespace Parking_Intelligence_Api.Models
 {
     public class Ticket
     {
-        public Ticket(int ticketNumber, int sequence, DateTime date, string hour)
+        public Ticket(int ticketNumber, int sequence, string date, string hour)
         {
             TicketNumber = ticketNumber;
             Sequence = sequence;
@@ -14,12 +14,12 @@ namespace Parking_Intelligence_Api.Models
         public Ticket()
         {
         }
-        public int Id { get; private set; }
+        public int Id { get;  set; }
         public int TicketNumber { get; internal set; }
         public int Sequence { get; internal set; }
-        public DateTime Date { get; internal set; }
-        public string Hour { get; internal set; }
-        public int InvoiceId { get; private set; }
-        public virtual Invoice Invoice { get; private set; }
+        public string Date { get; internal set; } = null!;
+        public string Hour { get; internal set; } = null!;
+        public int BuyId { get;  set; }
+        public virtual Buy Buy { get; private set; } = null!;
     }
 }

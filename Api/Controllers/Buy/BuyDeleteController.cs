@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.User;
 using Parking_Intelligence_Api.Services.Buy;
 
 namespace Parking_Intelligence_Api.Controllers.Buy;

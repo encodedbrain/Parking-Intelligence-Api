@@ -1,4 +1,4 @@
-namespace Parking_Intelligence_Api.Schemas
+namespace Parking_Intelligence_Api.Schemas.User
 {
     public class LoginSchema
     {
@@ -12,7 +12,7 @@ namespace Parking_Intelligence_Api.Schemas
         {
         }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
     }
 }

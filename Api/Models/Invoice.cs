@@ -10,8 +10,7 @@ public class Invoice
         decimal amountPaid,
         decimal expense,
         string limitTime,
-        decimal change,
-        string datelimit
+        decimal change
     )
     {
         this.TicketNumber = ticketNumber;
@@ -28,16 +27,15 @@ public class Invoice
     {
     }
 
-    public int Id { get; private set; }
+    public int Id { get; set; }
     public int TicketNumber { get; internal set; }
-    public  string DateEntry { get; internal set; }
+    public  string DateEntry { get; internal set; } = null!;
     public DateTime DepartureDate { get; internal set; }
-    public string StayTime { get; internal set; }
+    public string StayTime { get; internal set; } = null!;
     public decimal AmountPaid { get; internal set; }
     public decimal Expense { get; internal set; }
-    public string LimitTime { get; set; }
-    public int BuyId { get; private set; }
-    public virtual Buy Buy { get; private set; }
-    public virtual Ticket Ticket { get; internal set; }
+    public string LimitTime { get; set; } = null!;
+    public int BuyId { get;  set; }
+    public virtual Buy Buy { get; private set; } = null!;
     public decimal Change { get; set; }
 }

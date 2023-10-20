@@ -1,15 +1,19 @@
 ﻿using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.vehicle;
 
 namespace Parking_Intelligence_Api.Services.Vehicle;
 
 public class VehicleUpdateService
 {
-    public async Task<bool> VehicleUpdate(DeleteVehicleSchema prop, string vacancy)
+    public async Task<bool> VehicleUpdate(UpdateVehicleSchema prop, string vacancy)
     {
         var user1 = new Models.User();
+        var rotary = "rotary";
+        var monthlyPayer = "monthly payer";
+        var parked = "parked";
+        var withdrawn = "withdrawn";
 
         if (!user1.ValidatePassword(prop.Password)) return false;
         if (!user1.VaLidateEmail(prop.Email)) return false;
@@ -23,9 +27,9 @@ public class VehicleUpdateService
             if (user is null) return false;
 
 
-            if (vacancy == "rotativo")
+            if (vacancy == rotary)
             {
-                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == "rotativo"
+                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == rotary
                     && buy.User.Id == buy.UserId && buy.User.Password ==
                     user.EncryptingPassword(prop.Password)
                     && buy.User.Email == prop.Email);
@@ -33,13 +37,12 @@ public class VehicleUpdateService
                 if (buy is null) return false;
 
                 var vehicle = db.Vehicles.FirstOrDefault(vehicle =>
-                    vehicle.Status == "estacionado" && vehicle.UserId == buy.UserId &&
-                    vehicle.LicensePlate == buy.VehicleIdentifier);
+                    vehicle.Status == parked && vehicle.UserId == buy.UserId &&
+                    vehicle.LicensePlate == prop.VehicleIdentifier);
 
                 if (vehicle is null) return false;
 
-                vehicle.Status = "retirado";
-
+                vehicle.Status = withdrawn;
                 buy.Invoice.StayTime = DateTime.Now.ToString("t");
 
                 var culture = new CultureInfo("en-US");
@@ -54,17 +57,18 @@ public class VehicleUpdateService
 
                 if (convertExit < convertLimit)
                 {
-                    var total = CalculatesParkedTime(buy.Value, "rotativo");
+                    var total = CalculatesParkedTime(buy.Value, rotary);
                     buy.Value = total;
+                    buy.Invoice.Expense = total;
                 }
 
                 db.Vehicles.Update(vehicle);
                 db.Buys.Update(buy);
             }
 
-            if (vacancy == "mensalista")
+            if (vacancy == monthlyPayer)
             {
-                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == "mensalista"
+                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == monthlyPayer
                     && buy.User.Id == buy.UserId && buy.User.Password ==
                     user.EncryptingPassword(prop.Password)
                     && buy.User.Email == prop.Email);
@@ -72,13 +76,13 @@ public class VehicleUpdateService
                 if (buy is null) return false;
 
                 var vehicle = db.Vehicles.FirstOrDefault(vehicle =>
-                    vehicle.Status == "estacionado" && vehicle.UserId == buy.User.Id &&
+                    vehicle.Status == parked && vehicle.UserId == buy.User.Id &&
                     vehicle.LicensePlate == buy.VehicleIdentifier);
 
                 if (vehicle is null) return false;
 
 
-                vehicle.Status = "retirado";
+                vehicle.Status = withdrawn;
                 buy.Invoice.StayTime = DateTime.Now.ToString("d");
 
                 var culture = new CultureInfo("en-US");
@@ -91,9 +95,11 @@ public class VehicleUpdateService
 
                 if (convertExit < convertLimit)
                 {
-                    var total = CalculatesParkedTime(buy.Value, "mensalista");
+                    var total = CalculatesParkedTime(buy.Value, monthlyPayer);
                     buy.Value = total;
+                    buy.Invoice.Expense = total;
                 }
+
 
                 db.Vehicles.Update(vehicle);
                 db.Buys.Update(buy);
@@ -110,8 +116,9 @@ public class VehicleUpdateService
     private decimal CalculatesParkedTime(decimal vacancysValue, string vacancy)
     {
         decimal fees;
+        var rotary = "rotary";
 
-        if (vacancy == "rotativo")
+        if (vacancy == rotary)
         {
             fees = vacancysValue * 15 / 100;
             return fees + vacancysValue;

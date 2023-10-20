@@ -1,5 +1,5 @@
 ﻿using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.User;
 
 namespace Parking_Intelligence_Api.Services.Buy;
 

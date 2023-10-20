@@ -1,19 +1,18 @@
 ﻿using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.User;
 
 namespace Parking_Intelligence_Api.Services.Vehicle;
 
 public class VehiclesUserServices
 {
-
     public object GetVehicles(LoginSchema prop)
     {
         using (var db = new ParkingDb())
         {
             var user = db.Users
                 .Where(user =>
-                    user.Email == prop.Email && user.Password == new Models.User().EncryptingPassword(prop.Password) &&
-                    user.Id == 1).Select(
+                    user.Email == prop.Email && user.Password == new Models.User().EncryptingPassword(prop.Password))
+                .Select(
                     user => new
                     {
                         User = user,
@@ -26,7 +25,8 @@ public class VehiclesUserServices
 
             foreach (var vehicle in user.Vehicle)
             {
-                vehicle.User.Password = string.Empty;
+                if (vehicle.User != null) vehicle.User = null;
+
                 return vehicle;
             }
 

@@ -14,9 +14,9 @@ namespace Parking_Intelligence_Api.Models
             Method = method;
         }
         
-        public int Id { get; private set; }
-        public string Method { get; internal set; }
-        public int BuyId { get; private set; } 
-        public Buy Buy { get; private set; }
+        public int Id { get; set; }
+        public string Method { get; internal set; } = null!;
+        public int BuyId { get; set; } 
+        public Buy Buy { get; private set; } = null!;
     }
 }

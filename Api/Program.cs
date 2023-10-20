@@ -20,8 +20,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(
         "Open",
-        builder =>
-            builder
+        cors =>
+            cors
                 .SetIsOriginAllowed(_ => true)
                 .WithOrigins("http://localhost:4200")
                 .AllowAnyMethod()
@@ -37,6 +37,8 @@ builder.Services
 IdentityModelEventSource.ShowPII = true;
 
 var hash = builder.Configuration.GetConnectionString("secret");
+
+if (hash is null) return;
 
 var key = Encoding.ASCII.GetBytes(hash);
 
@@ -61,10 +63,10 @@ builder.Services
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(Options =>
+builder.Services.AddSwaggerGen(options =>
 {
     // Configuration of the "Bearer Token" field
-    Options.AddSecurityDefinition(
+    options.AddSecurityDefinition(
         "Bearer",
         new OpenApiSecurityScheme
         {
@@ -77,7 +79,7 @@ builder.Services.AddSwaggerGen(Options =>
         }
     );
     // Add security operation to all routes
-    Options.AddSecurityRequirement(
+    options.AddSecurityRequirement(
         new OpenApiSecurityRequirement()
         {
             {

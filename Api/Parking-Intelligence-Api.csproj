@@ -36,25 +36,31 @@
     <Compile Remove="interfaces\IDataUser.cs" />
     <Compile Remove="Services\HostedServices\**" />
     <Compile Remove="Services\ParkedTime\**" />
+    <Compile Remove="Tests\**" />
+    <Compile Remove="Models\Table.cs" />
+    <Compile Remove="Mappings\TablesMap.cs" />
+    <Compile Remove="Services\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="Services\HostedServices\**" />
     <EmbeddedResource Remove="Services\ParkedTime\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <EmbeddedResource Remove="Services\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Remove="Services\HostedServices\**" />
     <Content Remove="Services\ParkedTime\**" />
+    <Content Remove="Tests\**" />
+    <Content Remove="Services\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Services\HostedServices\**" />
     <None Remove="Services\ParkedTime\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Tests\" />
+    <None Remove="Tests\**" />
+    <None Remove="Services\Ticket\**" />
   </ItemGroup>
 
 </Project>

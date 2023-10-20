@@ -1,6 +1,7 @@
-﻿namespace Parking_Intelligence_Api.Schemas;
+﻿
+namespace Parking_Intelligence_Api.Schemas.vehicle;
 
-public class VehicleSchema
+public class VehicleSchema 
 {
     public VehicleSchema(string model, string color, int year, string brand, string licensePlate, string species, string name)
     {

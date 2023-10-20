@@ -1,4 +1,4 @@
-namespace Parking_Intelligence_Api.Schemas
+namespace Parking_Intelligence_Api.Schemas.User
 {
     public class UpdateSchema
     {

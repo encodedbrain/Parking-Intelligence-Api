@@ -14,16 +14,14 @@ public class ParkingDb : DbContext
         : base(options)
     {
     }
-
-    public DbSet<Tables> PriceTable { get; set; }
-    public DbSet<Vehicle> Vehicles { get; set; }
-    public DbSet<User> Users { get; set; }
-    public DbSet<Invoice> Invoices { get; set; }
-    public DbSet<Buy> Buys { get; set; }
-    public DbSet<Ticket> Tickets { get; set; }
-    public DbSet<PaymentMethod> PaymentMethods { get; set; }
-    public DbSet<Calendars> Calendars { get; set; }
-    public DbSet<UserData> UserDatas { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Invoice> Invoices { get; set; } = null!;
+    public DbSet<Buy> Buys { get; set; } = null!;
+    public DbSet<Ticket> Tickets { get; set; } = null!;
+    public DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
+    public DbSet<Calendars> Calendars { get; set; } = null!;
+    public DbSet<UserData> UserDatas { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -53,7 +51,6 @@ public class ParkingDb : DbContext
             .WithOne(e => e.Buy)
             .HasForeignKey<Invoice>(e => e.BuyId)
             .IsRequired();
-
         modelBuilder
             .Entity<Invoice>()
             .HasOne(e => e.Buy)
@@ -76,28 +73,18 @@ public class ParkingDb : DbContext
             .WithOne(e => e.PaymentMethod)
             .HasForeignKey<PaymentMethod>(e => e.BuyId)
             .IsRequired();
+        //ticket / invoice
+        modelBuilder.Entity<Ticket>().HasOne(ticket =>
+            ticket.Buy).WithOne(ticket => ticket.Ticket).HasForeignKey<Ticket>(
+            ticket => ticket.BuyId);
+        
 
-        modelBuilder
-            .Entity<Invoice>()
-            .HasOne(e => e.Ticket)
-            .WithOne(e => e.Invoice)
-            .HasForeignKey<Ticket>(e => e.InvoiceId)
-            .IsRequired();
-
-        modelBuilder
-            .Entity<Ticket>()
-            .HasOne(e => e.Invoice)
-            .WithOne(e => e.Ticket)
-            .HasForeignKey<Ticket>(e => e.InvoiceId)
-            .IsRequired();
 
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.ApplyConfiguration(new BuyMap());
-        // modelBuilder.ApplyConfiguration(new CalendarMap());
         modelBuilder.ApplyConfiguration(new InvoiceMap());
         modelBuilder.ApplyConfiguration(new TicketMap());
         modelBuilder.ApplyConfiguration(new VehicleMap());
-        modelBuilder.ApplyConfiguration(new TablesMap());
         modelBuilder.ApplyConfiguration(new PaymentMethodMap());
         modelBuilder.ApplyConfiguration(new UserDataMap());
     }

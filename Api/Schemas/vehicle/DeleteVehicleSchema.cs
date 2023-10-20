@@ -1,4 +1,6 @@
-﻿namespace Parking_Intelligence_Api.Schemas;
+﻿using Parking_Intelligence_Api.Schemas.User;
+
+namespace Parking_Intelligence_Api.Schemas.vehicle;
 
 public class DeleteVehicleSchema : LoginSchema
 {

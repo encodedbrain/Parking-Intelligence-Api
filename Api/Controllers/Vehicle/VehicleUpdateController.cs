@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.vehicle;
 using Parking_Intelligence_Api.Services.Vehicle;
 
 namespace Parking_Intelligence_Api.Controllers.Vehicle;
@@ -13,7 +13,7 @@ public class VehicleUpdateController : ControllerBase
     [HttpPut]
     [Route("vehicle/update")]
     [Authorize]
-    public Task<IActionResult> VehicleUpdate([FromBody] DeleteVehicleSchema prop , [FromQuery] string vacancy)
+    public Task<IActionResult> VehicleUpdate([FromBody] UpdateVehicleSchema prop , [FromQuery] string vacancy)
     {
         var service = new VehicleUpdateService();
 

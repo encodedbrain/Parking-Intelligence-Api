@@ -12,7 +12,7 @@ namespace Parking_Intelligence_Api.Models
         {
         }
 
-        public User(string email, string nickname, string password, int account_id)
+        public User(string email, string nickname, string password)
         {
             this.Email = email;
             this.Nickname = nickname;
@@ -20,13 +20,15 @@ namespace Parking_Intelligence_Api.Models
         }
 
         public int Id { get; set; }
-        public string Email { get; internal set; }
-        public string Nickname { get; internal set; }
-        public string Password { get; internal set; }
-        public virtual UserData UserData { get; internal set; }
+        public string Email { get; internal set; } = null!;
+        public string Nickname { get; internal set; } = null!;
+        public string Password { get; internal set; } = null!;
+        public virtual UserData UserData { get; internal set; } = null!;
+
         [NotMapped]
-        public virtual ICollection<Vehicle> Vehicles { get; internal set; }
-        public virtual ICollection<Buy> Buys { get; internal set; }
+        public virtual ICollection<Vehicle> Vehicles { get; internal set; } = null!;
+
+        public virtual ICollection<Buy> Buys { get; internal set; } = null!;
 
         public bool ValidatePassword(string password)
         {
@@ -48,6 +50,7 @@ namespace Parking_Intelligence_Api.Models
         {
             var hash = SHA1.Create();
             var encoding = new ASCIIEncoding();
+            if (password is null) return string.Empty;
             var arrayBytes = encoding.GetBytes(password);
 
             arrayBytes = hash.ComputeHash(arrayBytes);

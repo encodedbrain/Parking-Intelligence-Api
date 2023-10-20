@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.vehicle;
 using Parking_Intelligence_Api.Services.Vehicle;
 
 namespace Parking_Intelligence_Api.Controllers.Vehicle;

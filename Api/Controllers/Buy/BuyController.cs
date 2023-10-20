@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas;
 using Parking_Intelligence_Api.Schemas.buy;
 using Parking_Intelligence_Api.Services.Buy;
 

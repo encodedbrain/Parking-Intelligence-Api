@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas;
+using Parking_Intelligence_Api.Schemas.User;
 using Parking_Intelligence_Api.Services.User;
 
 namespace Parking_Intelligence_Api.Controllers.User;
@@ -43,7 +43,7 @@ public class UserController : ControllerBase
         if (!validations.ValidateCredentials(user))
             return BadRequest("invalid credentials");
         var userValidation = validations.ReturnUser(user);
-        if (userValidation is null)
+        if (userValidation is false)
             return BadRequest("null user or invalid credentials");
         return Ok(userValidation);
     }
