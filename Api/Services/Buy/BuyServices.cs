@@ -66,6 +66,9 @@ public class BuyServices
                         StayTime = "",
                         TicketNumber = GenerateCredential(),
                         LimitTime = VacancyTypeCheck(prop.VacancyType),
+                    },PaymentMethod = new PaymentMethod()
+                    {
+                        Method = ""
                     }
                 }
             };

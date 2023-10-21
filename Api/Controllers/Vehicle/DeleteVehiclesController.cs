@@ -12,11 +12,11 @@ public class DeleteVehiclesController : ControllerBase
     [HttpDelete]
     [Route("user/vehicle/delete")]
     [Authorize]
-    public Task<IActionResult> DeleteOneMoreVehicles([FromBody] DeleteVehicleSchema user)
+    public Task<IActionResult> DeleteOneMoreVehicles([FromBody] DeleteVehicleSchema prop)
     {
-        var services = new DeleteVehiclesServices();
+        var service = new DeleteVehiclesServices();
 
-        var status = services.DeleteVehiclesService(user).Result;
+        var status = service.DeleteVehiclesService(prop).Result;
 
         if (status is false)
             return Task.FromResult<IActionResult>(NotFound("something wrong, maybe this vehicle doesn't exist"));

@@ -7,7 +7,7 @@ namespace Parking_Intelligence_Api.Services.Vehicle;
 
 public class VehicleUpdateService
 {
-    public async Task<bool> VehicleUpdate(UpdateVehicleSchema prop, string vacancy)
+    public async Task<bool> VehicleUpdate(UpdateVehicleSchema prop, string vacancy )
     {
         var user1 = new Models.User();
         var rotary = "rotary";
@@ -29,7 +29,7 @@ public class VehicleUpdateService
 
             if (vacancy == rotary)
             {
-                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == rotary
+                var buy = db.Buys.Include(buy => buy.Invoice).Include(buy => buy.PaymentMethod).FirstOrDefault(buy => buy.VacancyType == rotary
                     && buy.User.Id == buy.UserId && buy.User.Password ==
                     user.EncryptingPassword(prop.Password)
                     && buy.User.Email == prop.Email);
@@ -42,6 +42,7 @@ public class VehicleUpdateService
 
                 if (vehicle is null) return false;
 
+                buy.PaymentMethod.Method = prop.Method;
                 vehicle.Status = withdrawn;
                 buy.Invoice.StayTime = DateTime.Now.ToString("t");
 
@@ -68,7 +69,7 @@ public class VehicleUpdateService
 
             if (vacancy == monthlyPayer)
             {
-                var buy = db.Buys.Include(buy => buy.Invoice).FirstOrDefault(buy => buy.VacancyType == monthlyPayer
+                var buy = db.Buys.Include(buy => buy.Invoice).Include(buy => buy.PaymentMethod).FirstOrDefault(buy => buy.VacancyType == monthlyPayer
                     && buy.User.Id == buy.UserId && buy.User.Password ==
                     user.EncryptingPassword(prop.Password)
                     && buy.User.Email == prop.Email);
@@ -82,6 +83,7 @@ public class VehicleUpdateService
                 if (vehicle is null) return false;
 
 
+                buy.PaymentMethod.Method = prop.Method;
                 vehicle.Status = withdrawn;
                 buy.Invoice.StayTime = DateTime.Now.ToString("d");
 
@@ -128,4 +130,5 @@ public class VehicleUpdateService
         fees = vacancysValue * 10 / 100;
         return fees + vacancysValue;
     }
+    
 }
