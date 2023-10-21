@@ -12,26 +12,15 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("user/create")]
     [AllowAnonymous]
-    public async Task<IActionResult> CreateUser([FromBody] UserSchema user)
+    public async Task<IActionResult> CreateUser([FromBody] UserSchema prop)
     {
         var service = new CreateUserServices();
 
-        if (service.SearchingforUser(user.Email, user.Cpf, user.Phone))
-            return BadRequest("user already exists");
+        var status = service.CreateNewUser(prop).Result;
 
-        if (
-            !service.ValidateCredentials(
-                user.Email,
-                user.Nickname,
-                user.Fullname,
-                user.Cpf,
-                user.Phone,
-                user.Password
-            )
-        )
-            return BadRequest("to something wrong in one of the fields");
+        if (status is false) return BadRequest("to something wrong in one of the fields");
 
-        return Ok(await service.CreateNewUser(user));
+        return Ok(await service.CreateNewUser(prop));
     }
 
     [HttpPost]

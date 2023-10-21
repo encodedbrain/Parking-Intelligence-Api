@@ -1,17 +1,17 @@
 ﻿using Parking_Intelligence_Api.Data;
-using Parking_Intelligence_Api.Schemas.User;
+using Parking_Intelligence_Api.Schemas.vehicle;
 
 namespace Parking_Intelligence_Api.Services.Vehicle;
 
 public class VehiclesUserServices
 {
-    public object GetVehicles(LoginSchema prop)
+    public object GetVehicles(GetVehicleSchema prop)
     {
         using (var db = new ParkingDb())
         {
             var user = db.Users
                 .Where(user =>
-                    user.Email == prop.Email && user.Password == new Models.User().EncryptingPassword(prop.Password))
+                    user.Nickname == prop.Name)
                 .Select(
                     user => new
                     {

@@ -8,56 +8,12 @@ public class CreateUserServices
 {
     private Models.User _user = new();
 
-    internal bool SearchingforUser(string email, string cpf, string phone)
-    {
-        using (var db = new ParkingDb())
-        {
-            if (
-                string.IsNullOrEmpty(email)
-                || string.IsNullOrEmpty(cpf)
-                || string.IsNullOrEmpty(phone)
-            )
-                return false;
-            var searchingforUser = db.Users.Any(
-                user =>
-                    user.Email == email
-                    || user.UserData.Cpf == cpf
-                    || user.UserData.Phone == phone
-            );
-
-            return searchingforUser;
-        }
-    }
-
-    internal bool ValidateCredentials(
-        string email,
-        string nickname,
-        string fullname,
-        string cpf,
-        string phone,
-        string password
-    )
-    {
-        if (SearchingforUser(email, cpf, phone))
-            return false;
-        else if (!_user.VaLidateEmail(email))
-            return false;
-        else if (!_user.ValidateName(nickname))
-            return false;
-        else if (!_user.ValidateName(fullname))
-            return false;
-        else if (!_user.ValidateCpf(cpf))
-            return false;
-        else if (!_user.ValidatePhone(phone))
-            return false;
-        else if (!_user.ValidatePassword(password))
-            return false;
-
-        return true;
-    }
 
     internal async Task<object> CreateNewUser(UserSchema prop)
     {
+        if (!ValidateCredentials(prop)) return false;
+        if (!SearchingforUser(prop)) return false;
+
         using (var db = new ParkingDb())
         {
             var user = new Models.User
@@ -87,5 +43,48 @@ public class CreateUserServices
                 user.Nickname, token
             };
         }
+    }
+
+    internal bool SearchingforUser(UserSchema prop)
+    {
+        using (var db = new ParkingDb())
+        {
+            if (
+                string.IsNullOrEmpty(prop.Email)
+                || string.IsNullOrEmpty(prop.Cpf)
+                || string.IsNullOrEmpty(prop.Phone)
+            )
+                return false;
+            var searchingforUser = db.Users.Any(
+                user =>
+                    user.Email == prop.Email
+                    || user.UserData.Cpf == prop.Cpf
+                    || user.UserData.Phone == prop.Phone
+                    || user.Nickname == prop.Nickname
+            );
+
+            return searchingforUser;
+        }
+    }
+
+    internal bool ValidateCredentials(
+        UserSchema prop
+    )
+    {
+        if (!_user.VaLidateEmail(prop.Email))
+            return false;
+        else if (!_user.ValidateName(prop.Nickname))
+            return false;
+        else if (!_user.ValidateName(prop.Fullname))
+            return false;
+        else if (!_user.ValidateCpf(prop.Cpf))
+            return false;
+        else if (!_user.ValidatePhone(prop.Phone))
+            return false;
+        else if (!_user.ValidatePassword(prop.Password))
+            return false;
+
+
+        return true;
     }
 }
