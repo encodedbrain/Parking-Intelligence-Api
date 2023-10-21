@@ -189,9 +189,40 @@ namespace Parking_Intelligence_Api.Models
             return rgx.IsMatch(email);
         }
 
+        public bool VerifyCharaterRepeat(string name)
+        {
+            Dictionary<char, int> dict = new Dictionary<char, int>();
+
+            foreach (var chr in name)
+            {
+                int count = 0;
+                foreach (var ch in name)
+                {
+                    if (chr == ch)
+                    {
+                        count++;
+                    }
+                }
+
+                if (count > 1)
+                {
+                    dict.TryAdd(chr, count);
+                }
+            }
+
+            if (dict.Any())
+            {
+                foreach (var kvp in dict)
+                {
+                    if (kvp.Value > 2) return false;
+                }
+            }
+
+            return true;
+        }
         public bool ValidateName(string? name)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || !VerifyCharaterRepeat(name))
             {
                 return false;
             }

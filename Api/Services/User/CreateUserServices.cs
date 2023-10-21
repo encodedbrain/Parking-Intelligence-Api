@@ -76,12 +76,16 @@ public class CreateUserServices
             await db.AddAsync(user);
             await db.SaveChangesAsync();
 
-            var generateToken = ParkingServices.GenerateToken(user);
+            var token = TokenServices.GenerateToken(user);
 
-            user.Password = "";
-            user.UserData.Cpf = "";
-            user.UserData.Address = "";
-            return new { User = user, generateToken };
+            user.Password = string.Empty;
+            user.UserData.Cpf = string.Empty;
+            user.UserData = null!;
+            return new
+            {
+                user.Email,
+                user.Nickname, token
+            };
         }
     }
 }

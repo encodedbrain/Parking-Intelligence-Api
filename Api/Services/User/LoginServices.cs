@@ -20,10 +20,10 @@ public class LoginServices
                 return false;
 
 
-            var token = ParkingServices.GenerateToken(user);
+            var token = TokenServices.GenerateToken(user);
             user.Password = string.Empty;
 
-            return new { user, token };
+            return new { user.Id, user.Email, user.Nickname, token };
         }
     }
 
