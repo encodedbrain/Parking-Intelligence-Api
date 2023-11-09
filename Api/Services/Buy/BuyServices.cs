@@ -8,19 +8,6 @@ public class BuyServices
 {
     private readonly Models.User _user = new();
 
-    internal bool ValidateCredentials(BuySchema prop)
-    {
-        using (var db = new ParkingDb())
-        {
-            var gettingUserId = db.Users.FirstOrDefault(
-                user => user.Password == _user.EncryptingPassword(prop.Password) && user.Email == prop.Email
-            );
-            if (gettingUserId is null) return false;
-        }
-
-        return true;
-    }
-
     public bool MakingPurchase(BuySchema prop)
     {
         Models.Buy buy = new Models.Buy();      
@@ -96,21 +83,6 @@ public class BuyServices
 
         return true;
     }
-     // private decimal CalculatesParkedTime(decimal vacancysValue, string vacancy)
-     // {
-     //     decimal fees;
-     //     var rotary = "rotary";
-     //
-     //     if (vacancy == rotary)
-     //     {
-     //         fees = vacancysValue * 15 / 100;
-     //         return fees + vacancysValue;
-     //     }
-     //
-     //
-     //     fees = vacancysValue * 10 / 100;
-     //     return fees + vacancysValue;
-     // }
      
      private int GenerateCredential()
      {
