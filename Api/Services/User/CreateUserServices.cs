@@ -12,7 +12,7 @@ public class CreateUserServices
     internal async Task<object> CreateNewUser(UserSchema prop)
     {
         if (!ValidateCredentials(prop)) return false;
-        if (!SearchingforUser(prop)) return false;
+        if (SearchingforUser(prop)) return false;
 
         using (var db = new ParkingDb())
         {
@@ -37,6 +37,8 @@ public class CreateUserServices
             user.Password = string.Empty;
             user.UserData.Cpf = string.Empty;
             user.UserData = null!;
+            
+            
             return new
             {
                 user.Email,
@@ -75,7 +77,7 @@ public class CreateUserServices
             return false;
         else if (!_user.ValidateName(prop.Nickname))
             return false;
-        else if (!_user.ValidateName(prop.Fullname))
+        else if (!_user.ValidateFullName(prop.Fullname))
             return false;
         else if (!_user.ValidateCpf(prop.Cpf))
             return false;

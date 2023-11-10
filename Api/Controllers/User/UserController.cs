@@ -20,7 +20,7 @@ public class UserController : ControllerBase
 
         if (status is false) return BadRequest("to something wrong in one of the fields");
 
-        return Ok(await service.CreateNewUser(prop));
+        return Ok(status);
     }
 
     [HttpPost]
