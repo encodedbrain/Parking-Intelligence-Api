@@ -235,6 +235,13 @@ namespace Parking_Intelligence_Api.Models
             return true;
         }
 
+        public bool ValidateFullName(string? name)
+        {
+            if (name is null) return false;
+            if (name.Length >= 20) return false;
+            return true;
+        }
+
         public string ReturnCpfFormated(string? cpf)
         {
             if (string.IsNullOrEmpty(cpf))
