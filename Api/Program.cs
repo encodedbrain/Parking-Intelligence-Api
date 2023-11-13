@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Azure.KeyVault;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -35,10 +34,9 @@ if (builder.Environment.IsProduction())
     var keyVaultClientId = builder.Configuration.GetSection("KeyVaultClient:ClientId");
     var keyVaultClientSecret = builder.Configuration.GetSection("KeyVaultClient:ClientSecret");
     var keyVaultDirectoryId = builder.Configuration.GetSection("KeyVaultClient:DirectoryId");
+    var credential = new ClientSecretCredential(keyVaultDirectoryId.Value!,keyVaultClientId.Value,keyVaultClientSecret.Value);
 
-    var credential = new ClientSecretCredential(keyVaultDirectoryId.Value!.ToString(),keyVaultClientId.Value!.ToString(),keyVaultClientSecret.Value!.ToString());
-
-    var client = new SecretClient(new Uri(keyVaultUrl.Value!.ToString()),credential);
+    var client = new SecretClient(new Uri(keyVaultUrl.Value ?? string.Empty),credential);
 
 
     builder.Services.AddDbContext<ParkingDb>(options =>
