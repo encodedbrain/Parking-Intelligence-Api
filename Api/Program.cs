@@ -1,9 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -18,32 +15,7 @@ builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ParkingDb>();
-
-// if (builder.Environment.IsDevelopment())
-// {
-//     builder.Services.AddDbContext<ParkingDb>(options =>
-//     {
-//         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-//     });
-// }
-
-// if (builder.Environment.IsProduction())
-// {
-//     var keyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultURL");
-//     var keyVaultClientId = builder.Configuration.GetSection("KeyVaultClient:ClientId");
-//     var keyVaultClientSecret = builder.Configuration.GetSection("KeyVaultClient:ClientSecret");
-//     var keyVaultDirectoryId = builder.Configuration.GetSection("KeyVaultClient:DirectoryId");
-//     var credential = new ClientSecretCredential(keyVaultDirectoryId.Value!,keyVaultClientId.Value,keyVaultClientSecret.Value);
-//
-//     var client = new SecretClient(new Uri(keyVaultUrl.Value ?? string.Empty),credential);
-//
-//
-//     builder.Services.AddDbContext<ParkingDb>(options =>
-//     {
-//         options.UseSqlServer(client.GetSecret("ProdConnection").Value.ToString());
-//     });
-// }
+builder.Services.AddDbContext<ParkingDb>()
 
 
 builder.Services.AddCors(options =>
