@@ -27,7 +27,6 @@ public class ParkingDb : DbContext
     {
         var configRoot = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            //replace appsettings.Development.json with appsettings.json
             .AddJsonFile("appsettings.Development.json")
             .Build();
         optionsBuilder.UseSqlServer(configRoot.GetConnectionString("DefaultConnection"));

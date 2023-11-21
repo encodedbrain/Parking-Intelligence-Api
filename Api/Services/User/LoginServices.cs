@@ -23,6 +23,7 @@ public class LoginServices
             var token = TokenServices.GenerateToken(user);
             user.Password = string.Empty;
 
+
             return new { user.Id, user.Email, user.Nickname, token };
         }
     }

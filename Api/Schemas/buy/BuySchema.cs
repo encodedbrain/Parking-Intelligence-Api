@@ -16,7 +16,6 @@ namespace Parking_Intelligence_Api.Schemas.buy
             AmountPaid = amountPaid;
             Method = method;
         }
-
         public string Email { get; set; }
         public string Password { get; set; }
         public string VacancyType { get; set; }
