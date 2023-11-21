@@ -1,6 +1,10 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -9,13 +13,33 @@ using Parking_Intelligence_Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ParkingDb>()
+builder.Services.AddDbContext<ParkingDb>();
+
+
+
+if (builder.Environment.IsProduction())
+{
+    var keyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultUrl");
+    var keyVaultClientId = builder.Configuration.GetSection("KeyVault:tClientId");
+    var keyVaultClientSecret = builder.Configuration.GetSection("KeyVault:ClientSecret");
+    var keyVaultDirectoryId = builder.Configuration.GetSection("KeyVault:DirectoryID");
+
+
+    var credential = new ClientSecretCredential(keyVaultDirectoryId.Value,keyVaultClientId.Value,keyVaultClientSecret.Value);
+
+    builder.Configuration.AddAzureKeyVault(keyVaultUrl.Value,keyVaultClientId.Value,keyVaultClientSecret.Value, new DefaultKeyVaultSecretManager());
+
+
+    var client = new SecretClient(new Uri(keyVaultUrl.Value), credential);
+        
+    builder.Services.AddDbContext<ParkingDb>(options =>
+    {
+        options.UseSqlServer(client.GetSecret("ProdConnection").Value.Value.ToString());
+    });
+        
+}
 
 
 builder.Services.AddCors(options =>
@@ -32,7 +56,6 @@ builder.Services.AddCors(options =>
     );
 });
 
-// solving JsonException object cycle problem
 builder.Services
     .AddControllers()
     .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
@@ -63,7 +86,6 @@ builder.Services
         };
     });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -104,7 +126,6 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
