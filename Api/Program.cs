@@ -32,13 +32,15 @@ if (builder.Environment.IsProduction())
     builder.Configuration.AddAzureKeyVault(keyVaultUrl.Value,keyVaultClientId.Value,keyVaultClientSecret.Value, new DefaultKeyVaultSecretManager());
 
 
-    var client = new SecretClient(new Uri(keyVaultUrl.Value), credential);
-        
-    builder.Services.AddDbContext<ParkingDb>(options =>
+    if (keyVaultUrl.Value != null)
     {
-        options.UseSqlServer(client.GetSecret("ProdConnection").Value.Value.ToString());
-    });
+        var client = new SecretClient(new Uri(keyVaultUrl.Value), credential);
         
+        builder.Services.AddDbContext<ParkingDb>(options =>
+        {
+            options.UseSqlServer(client.GetSecret("ProdConnection").Value.Value);
+        });
+    }
 }
 
 
