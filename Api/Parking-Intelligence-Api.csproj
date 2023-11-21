@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0-beta.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.11" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.24" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -41,6 +42,7 @@
     <Compile Remove="Models\Table.cs" />
     <Compile Remove="Mappings\TablesMap.cs" />
     <Compile Remove="Services\Ticket\**" />
+    <Compile Remove="Schemas\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +50,7 @@
     <EmbeddedResource Remove="Services\ParkedTime\**" />
     <EmbeddedResource Remove="Tests\**" />
     <EmbeddedResource Remove="Services\Ticket\**" />
+    <EmbeddedResource Remove="Schemas\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,6 +58,7 @@
     <Content Remove="Services\ParkedTime\**" />
     <Content Remove="Tests\**" />
     <Content Remove="Services\Ticket\**" />
+    <Content Remove="Schemas\Ticket\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,6 +66,7 @@
     <None Remove="Services\ParkedTime\**" />
     <None Remove="Tests\**" />
     <None Remove="Services\Ticket\**" />
+    <None Remove="Schemas\Ticket\**" />
   </ItemGroup>
 
 </Project>
