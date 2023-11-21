@@ -12,7 +12,7 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("user/create")]
     [AllowAnonymous]
-    public async Task<IActionResult> CreateUser([FromBody] UserSchema prop)
+    public IActionResult CreateUser([FromBody] UserSchema prop)
     {
         var service = new CreateUserServices();
 
