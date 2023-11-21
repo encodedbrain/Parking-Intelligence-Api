@@ -22,7 +22,7 @@ builder.Services.AddDbContext<ParkingDb>();
 if (builder.Environment.IsProduction())
 {
     var keyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultUrl");
-    var keyVaultClientId = builder.Configuration.GetSection("KeyVault:tClientId");
+    var keyVaultClientId = builder.Configuration.GetSection("KeyVault:ClientId");
     var keyVaultClientSecret = builder.Configuration.GetSection("KeyVault:ClientSecret");
     var keyVaultDirectoryId = builder.Configuration.GetSection("KeyVault:DirectoryID");
 
