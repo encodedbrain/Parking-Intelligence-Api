@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Parking_Intelligence_Api</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0-beta.2" />
