@@ -24,7 +24,7 @@ public class TokenServices
 
         if (builder.Environment.IsProduction())
         {
-            var keyVaultUrl = builder.Configuration.GetSection("secret:KeyVaultUrl");
+            var keyVaultUrl = builder.Configuration.GetSection("secret:KeyVaultURL");
             var keyVaultClientId = builder.Configuration.GetSection("secret:ClientId");
             var keyVaultClientSecret = builder.Configuration.GetSection("secret:ClientSecret");
             var keyVaultDirectoryId = builder.Configuration.GetSection("secret:DirectoryID");
