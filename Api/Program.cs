@@ -17,8 +17,6 @@ builder.Services.AddControllers();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ParkingDb>();
 
-
-
 if (builder.Environment.IsProduction())
 {
     var keyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultURL");
@@ -42,7 +40,6 @@ if (builder.Environment.IsProduction())
         });
     }
 }
-
 
 builder.Services.AddCors(options =>
 {
