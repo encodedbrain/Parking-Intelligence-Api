@@ -60,6 +60,7 @@
     <Content Remove="Tests\**" />
     <Content Remove="Services\Ticket\**" />
     <Content Remove="Schemas\Ticket\**" />
+    <Content Remove="Web.config" />
   </ItemGroup>
 
   <ItemGroup>
