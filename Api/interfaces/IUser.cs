@@ -8,5 +8,5 @@ public interface IUser
     public bool ValidateCpf(string? cpf);
     public string ReturnCpfFormated(string? cpf);
     public bool ValidatePhone(string? phone);
-    public bool ValidatePassword(string password);
+    public bool  ValidatePassword(string password);
 }

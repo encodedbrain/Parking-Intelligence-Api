@@ -24,12 +24,8 @@ namespace Parking_Intelligence_Api.Models
         public string Nickname { get; internal set; } = null!;
         public string Password { get; internal set; } = null!;
         public virtual UserData UserData { get; internal set; } = null!;
-
-        [NotMapped]
         public virtual ICollection<Vehicle> Vehicles { get; internal set; } = null!;
-
         public virtual ICollection<Buy> Buys { get; internal set; } = null!;
-
         public bool ValidatePassword(string password)
         {
             Regex regex = new Regex(

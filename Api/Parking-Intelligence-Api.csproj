@@ -45,6 +45,12 @@
     <Compile Remove="Mappings\TablesMap.cs" />
     <Compile Remove="Services\Ticket\**" />
     <Compile Remove="Schemas\Ticket\**" />
+    <Compile Remove="Controllers\Vehicle\VehicleUpdateController.cs" />
+    <Compile Remove="Controllers\Vehicle\DeleteVehiclesController.cs" />
+    <Compile Remove="Controllers\User\UserUpdateController.cs" />
+    <Compile Remove="Controllers\User\UserDeleteController.cs" />
+    <Compile Remove="Controllers\Buy\BuyDeleteController.cs" />
+    <Compile Remove="Controllers\Buy\BuyUserController.cs" />
   </ItemGroup>
 
   <ItemGroup>
