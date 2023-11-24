@@ -31,8 +31,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: .net-app
-          path: ${{github.workspace}}/myapp
+          name: Parking-Intelligence-Api
+          path: ${{github.workspace}}/Api
 
   deploy:
     runs-on: windows-latest
