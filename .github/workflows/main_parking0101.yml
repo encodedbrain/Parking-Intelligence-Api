@@ -23,7 +23,7 @@ jobs:
           include-prerelease: true
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: Parking-Intelligence-Api/Api
+        working-directory: Api
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
