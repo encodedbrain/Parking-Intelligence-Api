@@ -51,6 +51,8 @@
     <Compile Remove="Controllers\User\UserDeleteController.cs" />
     <Compile Remove="Controllers\Buy\BuyDeleteController.cs" />
     <Compile Remove="Controllers\Buy\BuyUserController.cs" />
+    <Compile Remove="Services\User\UpdateUserServices.cs" />
+    <Compile Remove="Services\User\CreateUserServices.cs" />
   </ItemGroup>
 
   <ItemGroup>

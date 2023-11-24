@@ -36,7 +36,7 @@ if (builder.Environment.IsProduction())
         
         builder.Services.AddDbContext<ParkingDb>(options =>
         {
-            options.UseSqlServer(client.GetSecret("ProdConnection").Value.Value);
+            options.UseSqlServer(client.GetSecret("production").Value.Value);
         });
     }
 }
