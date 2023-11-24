@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parking-Intelligence-Api", "Api\Parking-Intelligence-Api.csproj", "{D4266ABC-1AFB-4393-B3DB-E5CD35DDBC6E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B508B2C6-AD86-49A9-A85B-D59B9AC8B51A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking-Intelligence-Api", "Parking-Intelligence-Api.csproj", "{C4C1EDC8-B65D-4A0D-831E-DBD9EF0FD10A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
