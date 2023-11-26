@@ -63,10 +63,10 @@ public class UserController : ControllerBase
     public Task<IActionResult> UpdateUser([FromBody] UpdateSchema prop)
     {
         var userServices = new UserServices();
-
+ 
         if (!userServices.Service.Update(prop))
         {
-            return Task.FromResult<IActionResult>(BadRequest(false));
+            return Task.FromResult<IActionResult>(BadRequest("this user does not exist"));
         }
 
         return Task.FromResult<IActionResult>(Ok("Your profile has been updated successfully"));
