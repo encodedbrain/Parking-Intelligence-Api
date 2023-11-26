@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Parking_Intelligence_Api.Schemas.User;
 using Parking_Intelligence_Api.Schemas.vehicle;
 using Parking_Intelligence_Api.Services.Vehicle;
 
@@ -16,11 +15,11 @@ public class VehiclesController : ControllerBase
     [Authorize]
     public Task<IActionResult> GetVehicles([FromQuery] GetVehicleSchema prop)
     {
-        var service = new VehiclesUserServices();
+        var vehicle = new VehicleServices();
 
-        var status = service.GetVehicles(prop);
+        var status = vehicle.Services.GetVehicles(prop);
 
-        if (status is false)
+        if (status.Length < 1)
             return Task.FromResult<IActionResult>(NotFound("something wrong, maybe this vehicle doesn't exist"));
 
         return Task.FromResult<IActionResult>(Ok(status));
@@ -32,29 +31,29 @@ public class VehiclesController : ControllerBase
     [Authorize]
     public Task<IActionResult> DeleteOneMoreVehicles([FromBody] DeleteVehicleSchema prop)
     {
-        var service = new DeleteVehiclesServices();
+        var vehicle = new VehicleServices();
 
-        var status = service.DeleteVehiclesService(prop).Result;
-
+        var status = vehicle.Services.DeleteVehicle(prop);
+    
         if (status is false)
             return Task.FromResult<IActionResult>(NotFound("something wrong, maybe this vehicle doesn't exist"));
-
+    
         return Task.FromResult<IActionResult>(Ok("vehicle successfully deleted"));
     }
-
-
+    
+    
     [HttpPut]
     [Route("update/vehicle")]
     [Authorize]
     public Task<IActionResult> VehicleUpdate([FromBody] UpdateVehicleSchema prop, [FromQuery] string vacancy)
     {
-        var service = new VehicleUpdateService();
-
-        var status = service.VehicleUpdate(prop, vacancy).Result;
-
+        var vehicle = new VehicleServices();
+    
+        var status = vehicle.Services.UpdateVehicle(prop, vacancy);
+    
         if (status is false)
             return Task.FromResult<IActionResult>(NotFound("something wrong, maybe this vehicle doesn't exist"));
-
+    
         return Task.FromResult<IActionResult>(Ok("vehicle successfully update"));
     }
 }

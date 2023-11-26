@@ -4,7 +4,7 @@ namespace Parking_Intelligence_Api.Services.User;
 
 public class UserServices
 {
-    public Models.User Service = new Models.User();
+    public readonly Models.User Service = new Models.User();
 
     public bool ValidateCredentials(LoginSchema prop)
     {

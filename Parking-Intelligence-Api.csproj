@@ -53,6 +53,11 @@
     <Compile Remove="Controllers\Buy\BuyUserController.cs" />
     <Compile Remove="Services\User\UpdateUserServices.cs" />
     <Compile Remove="Services\User\CreateUserServices.cs" />
+    <Compile Remove="Services\User\DeleteUserServices.cs" />
+    <Compile Remove="Services\Buy\BuysUserServices.cs" />
+    <Compile Remove="Services\Buy\BuyDeleteService.cs" />
+    <Compile Remove="Services\Vehicle\VehicleUpdateService.cs" />
+    <Compile Remove="Services\Vehicle\DeleteVehiclesServices.cs" />
   </ItemGroup>
 
   <ItemGroup>

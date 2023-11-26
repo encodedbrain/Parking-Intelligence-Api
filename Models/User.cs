@@ -32,8 +32,8 @@ namespace Parking_Intelligence_Api.Models
         public string Nickname { get; private set; }
         public string Password { get; private set; } 
         public UserData UserData { get; private set; }
-        public ICollection<Vehicle> Vehicles { get; private set; }
-        public ICollection<Buy> Buys { get; private set; }
+        public ICollection<Vehicle> Vehicles { get; internal set; }
+        public ICollection<Buy> Buys { get; internal set; }
 
         public bool ValidatePassword(string password)
         {
