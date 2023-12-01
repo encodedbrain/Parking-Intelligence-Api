@@ -14,6 +14,6 @@ public interface IUser
     public object Login(LoginSchema prop);
     public Task<object> Create(UserSchema prop);
     public Task<bool> Delete(LoginSchema prop);
-    public bool Update(UpdateSchema prop);
+    public bool UpdatePassword(UpdatePasswordSchema prop);
 
 }
