@@ -27,13 +27,13 @@ namespace Parking_Intelligence_Api.Models
         {
         }
 
-        public int Id { get; private set; }
-        public string Email { get; private set; } 
-        public string Nickname { get; private set; }
-        public string Password { get; private set; } 
-        public UserData UserData { get; private set; }
-        public ICollection<Vehicle> Vehicles { get; internal set; }
-        public ICollection<Buy> Buys { get; internal set; }
+        public int Id { get; private set; } 
+        public string Email { get; private set; } = null!;
+        public string Nickname { get; private set; } = null!;
+        public string Password { get; private set; } = null!;
+        public UserData UserData { get; private set; } = null!;
+        public ICollection<Vehicle> Vehicles { get; internal set; } = null!;
+        public ICollection<Buy> Buys { get; internal set; } = null!;
 
         public bool ValidatePassword(string password)
         {
@@ -303,20 +303,20 @@ namespace Parking_Intelligence_Api.Models
             return ValidatePhone(value.Phone) && ValidatePassword(value.Password);
         }
         
-        private bool VerifyFields(UpdateSchema prop)
+        private bool VerifyFields(UpdatePasswordSchema prop)
         {
             if (
-                string.IsNullOrEmpty(prop.FieldEdit)
-                || string.IsNullOrEmpty(prop.Password)
+                string.IsNullOrEmpty(prop.Password)
                 || string.IsNullOrEmpty(prop.Email)
-                || string.IsNullOrEmpty(prop.Value)
+                || string.IsNullOrEmpty(prop.NewPassword)
+                || !ValidatePassword(prop.NewPassword)
                 || !ValidatePassword(prop.Password)
                 || !VaLidateEmail(prop.Email)
             )
             {
                 return false;
             }
-
+        
             return true;
         }
         
@@ -411,75 +411,24 @@ namespace Parking_Intelligence_Api.Models
             return true;
         }
 
-
-        private void UpdatePassword(string? passwordValue, int id)
-        {
-            using var db = new ParkingDb();
-
-            var user = db.Users.Find(id);
-
-            if (user is null) return;
-
-            user.Password = EncryptingPassword(passwordValue);
-
-            db.Users.Update(user);
-            db.SaveChangesAsync();
-        }
-
-        private void UpdateEmail(string? emailValue, int id)
-        {
-            using var db = new ParkingDb();
-
-            var user = db.Users.Find(id);
-
-            if (user is null || emailValue is null) return;
-
-            user.Email = emailValue;
-
-            db.Users.Update(user);
-            db.SaveChangesAsync();
-        }
-
-        private void UpdateNickname(string? nickname, int id)
-        {
-            using var db = new ParkingDb();
-
-            var user = db.Users.Find(id);
-
-            if (nickname is null || user is null) return;
-            user.Nickname = nickname;
-            db.Users.Update(user);
-            db.SaveChangesAsync();
-        }
-        
-        public bool Update(UpdateSchema prop)
+        public bool UpdatePassword(UpdatePasswordSchema prop)
         {
             VerifyFields(prop);
-            
-            using var db = new ParkingDb();
-            var user = db.Users.FirstOrDefault(
-                user => user.Password == EncryptingPassword(prop.Password) && user.Email == prop.Email
-            );
-            if (user is null || prop.FieldEdit is null) return false;
+            using var context = new ParkingDb();
+
+            var user = context.Users.FirstOrDefault(user =>
+                user.Email == prop.Email && user.Password == this.EncryptingPassword(prop.Password));
 
 
-            var field = prop.FieldEdit.ToLower();
-            var value = prop.Value;
-            var id = user.Id;
-
-
-            switch (field)
+            if (user is null) return false;
+            else
             {
-                case "password":
-                    UpdatePassword(value, id);
-                    break;
-                case "email":
-                    UpdateEmail(value, id);
-                    break;
-                case "nickname":
-                    UpdateNickname(value, id);
-                    break;
+                user.Password = this.EncryptingPassword(prop.NewPassword);
+                context.Update(user);
+                context.SaveChanges();
+                
             }
+
 
             return true;
         }

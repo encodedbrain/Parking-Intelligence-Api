@@ -41,7 +41,7 @@ public class UserController : ControllerBase
     [HttpDelete]
     [Route("delete/user")]
     [Authorize]
-    public async Task<IActionResult> UserDelete([FromBody] LoginSchema prop)
+    public IActionResult UserDelete([FromBody] LoginSchema prop)
     {
         var user = new UserServices();
 
@@ -49,26 +49,27 @@ public class UserController : ControllerBase
         if (string.IsNullOrEmpty(prop.Email) || string.IsNullOrEmpty(prop.Password))
             return BadRequest("invalid fields");
 
-        var status = await user.Service.Delete(prop);
+        var status = user.Service.Delete(prop).Result;
         if (status is false)
             return BadRequest("error, unable to execute the delete command");
 
-        return Ok("user successfully deleted");
+        return Ok();
     }
 
 
     [Route("update/user")]
     [HttpPatch]
-    [Authorize]
-    public Task<IActionResult> UpdateUser([FromBody] UpdateSchema prop)
+    [AllowAnonymous]
+    public IActionResult UpdateUser([FromBody] UpdatePasswordSchema prop)
     {
         var user = new UserServices();
+        var status = user.Service.UpdatePassword(prop);
 
-        if (!user.Service.Update(prop))
+        if (!status)
         {
-            return Task.FromResult<IActionResult>(BadRequest("this user does not exist"));
+            return BadRequest("this user does not exist");
         }
 
-        return Task.FromResult<IActionResult>(Ok("Your profile has been updated successfully"));
+        return Ok();
     }
 }
