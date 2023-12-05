@@ -58,6 +58,7 @@
     <Compile Remove="Services\Buy\BuyDeleteService.cs" />
     <Compile Remove="Services\Vehicle\VehicleUpdateService.cs" />
     <Compile Remove="Services\Vehicle\DeleteVehiclesServices.cs" />
+    <Compile Remove="Schemas\User\UpdateSchema.cs" />
   </ItemGroup>
 
   <ItemGroup>

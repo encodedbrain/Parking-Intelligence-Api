@@ -2,31 +2,30 @@ namespace Parking_Intelligence_Api.Schemas.User
 {
     public class UserSchema
     {
-        public UserSchema(
-            string nickname,
-            string email,
-            string password,
-            string address,
-            string cpf,
-            string fullname,
-            string phone
-        )
+        public UserSchema(string nickname, string email, string password, string address, string cpf, string fullname,
+            string phone, IFormFile image)
         {
-            this.Nickname = nickname;
-            this.Email = email;
-            this.Password = password;
-            this.Address = address;
-            this.Cpf = cpf;
-            this.Fullname = fullname;
-            this.Phone = phone;
+            Nickname = nickname;
+            Email = email;
+            Password = password;
+            Address = address;
+            Cpf = cpf;
+            Fullname = fullname;
+            Phone = phone;
+            Image = image;
         }
 
-        public string Nickname { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Address { get; set; }
-        public string Cpf { get; set; }
-        public string Fullname { get; set; }
-        public string Phone { get; private set; }
+        public UserSchema()
+        {
+        }
+
+        public string Nickname { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public string Address { get; set; } = null!;
+        public string Cpf { get; set; } = null!;
+        public string Fullname { get; set; } = null!;
+        public string Phone { get; set; } = null!;
+        public IFormFile Image { get; set; } = null!;
     }
 }
