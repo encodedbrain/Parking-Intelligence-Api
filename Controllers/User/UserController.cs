@@ -12,7 +12,7 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("create/user")]
     [AllowAnonymous]
-    public IActionResult CreateUser([FromBody] UserSchema prop)
+    public IActionResult CreateUser([FromForm] UserSchema prop)
     {
         var user = new UserServices();
 
@@ -71,5 +71,16 @@ public class UserController : ControllerBase
         }
 
         return Ok();
+    }
+
+    [HttpPost]
+    [Route("download/profile")]
+    public IActionResult DownloadPhotoUser([FromBody] DownloadSchema prop)
+    {
+        UserServices userServices = new UserServices();
+        var status = userServices.Service.DownloadPhoto(prop);
+        if (status is null) return NotFound();
+        
+        return File(status ,"image/png") ;;
     }
 }

@@ -19,6 +19,7 @@ public class UserDataMap : IEntityTypeConfiguration<UserData>
             .Property(prop => prop.Address)
             .HasColumnName("address")
             .HasColumnType("varchar(100)");
+        builder.Property(prop => prop.Phone).HasColumnName("phone").HasColumnType("varchar(20)");
         builder.Property(prop => prop.Id).ValueGeneratedOnAdd();
     }
 }

@@ -11,7 +11,7 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.ToTable("user");
         builder.HasKey(prop => prop.Id);
         builder.Property(prop => prop.Id).ValueGeneratedOnAdd();
-
+        builder.Property(prop => prop.Photo).HasColumnName("photo").HasColumnType("varchar(256)");
         builder
             .Property(prop => prop.Email)
             .HasColumnName("email")

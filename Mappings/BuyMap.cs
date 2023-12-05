@@ -4,7 +4,7 @@ using Parking_Intelligence_Api.Models;
 
 namespace Parking_Intelligence_Api.Mappings;
 
-public class BuyMap : IEntityTypeConfiguration<Buy>
+public class  BuyMap : IEntityTypeConfiguration<Buy>
 {
     public void Configure(EntityTypeBuilder<Buy> builder)
     {

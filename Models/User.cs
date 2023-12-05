@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Utilities;
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.interfaces;
 using Parking_Intelligence_Api.Schemas.User;
@@ -11,26 +13,30 @@ namespace Parking_Intelligence_Api.Models
 {
     public sealed class User : IUser
     {
-        public User(string email, string nickname, string password, UserData userData, ICollection<Vehicle> vehicles,
-            ICollection<Buy> buys, int id)
+        public User(int id, string email, string nickname, string password, IFormFile image, UserData userData,
+            ICollection<Vehicle> vehicles, ICollection<Buy> buys)
         {
+            Id = id;
             Email = email;
             Nickname = nickname;
             Password = password;
+            Image = image;
             UserData = userData;
             Vehicles = vehicles;
             Buys = buys;
-            Id = id;
         }
+
 
         public User()
         {
         }
 
-        public int Id { get; private set; } 
+        public int Id { get; private set; }
         public string Email { get; private set; } = null!;
         public string Nickname { get; private set; } = null!;
         public string Password { get; private set; } = null!;
+        public string Photo { get; set; } = null!;
+        [NotMapped] public IFormFile Image { get; set; } = null!;
         public UserData UserData { get; private set; } = null!;
         public ICollection<Vehicle> Vehicles { get; internal set; } = null!;
         public ICollection<Buy> Buys { get; internal set; } = null!;
@@ -302,7 +308,7 @@ namespace Parking_Intelligence_Api.Models
                 return false;
             return ValidatePhone(value.Phone) && ValidatePassword(value.Password);
         }
-        
+
         private bool VerifyFields(UpdatePasswordSchema prop)
         {
             if (
@@ -316,10 +322,10 @@ namespace Parking_Intelligence_Api.Models
             {
                 return false;
             }
-        
+
             return true;
         }
-        
+
         public object Login(LoginSchema prop)
         {
             using var db = new ParkingDb();
@@ -338,16 +344,20 @@ namespace Parking_Intelligence_Api.Models
         }
 
         public async Task<object> Create(UserSchema prop)
+        
         {
             if (!ValidateCredentials(prop)) return false;
             if (SearchingforUser(prop)) return false;
 
+            var Path = this.SavePathImage(prop);
+            
             await using var db = new ParkingDb();
             var user = new User
             {
                 Nickname = prop.Nickname,
                 Password = EncryptingPassword(prop.Password),
                 Email = prop.Email,
+                Photo = Path,
                 UserData = new UserData
                 {
                     Address = prop.Address,
@@ -426,11 +436,32 @@ namespace Parking_Intelligence_Api.Models
                 user.Password = this.EncryptingPassword(prop.NewPassword);
                 context.Update(user);
                 context.SaveChanges();
-                
+
             }
 
 
             return true;
+        }
+
+        public byte[] DownloadPhoto(DownloadSchema prop)
+        {
+            using var context = new ParkingDb();
+
+            var user = context.Users.FirstOrDefault(user =>
+                user.Email == prop.Email && user.Password == this.EncryptingPassword(prop.Password));
+            
+            var dataBytes = System.IO.File.ReadAllBytes(user!.Photo);
+            return dataBytes;
+
+        }
+
+        public string SavePathImage(UserSchema prop)
+        {
+            var filePath = Path.Combine("Storage", prop.Image.FileName);
+            using Stream fileStream = new FileStream(filePath, FileMode.Create);
+            prop.Image.CopyTo(fileStream);
+
+            return filePath;
         }
     }
 }
