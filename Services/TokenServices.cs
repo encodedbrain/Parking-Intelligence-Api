@@ -50,13 +50,14 @@ public class TokenServices
         if (hash != null)
         {
             var key = Encoding.ASCII.GetBytes(hash);
-
             var config = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(
                     new[]
                     {
-                        new Claim(ClaimTypes.Name, users.Password),
+                        new Claim(ClaimTypes.Name, users.Nickname),
+                        new Claim(ClaimTypes.Email, users.Email),
+
                         new Claim(
                             ClaimTypes.Role,
                             users.Password ?? throw new InvalidOperationException()
@@ -75,6 +76,7 @@ public class TokenServices
 
             return token;
         }
+
 
         return null!;
     }

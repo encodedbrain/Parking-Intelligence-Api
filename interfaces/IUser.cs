@@ -1,4 +1,3 @@
-using Org.BouncyCastle.Utilities;
 using Parking_Intelligence_Api.Schemas.User;
 
 namespace Parking_Intelligence_Api.interfaces;
@@ -17,6 +16,7 @@ public interface IUser
     public Task<bool> Delete(LoginSchema prop);
     public bool UpdatePassword(UpdatePasswordSchema prop);
     public byte[] DownloadPhoto(DownloadSchema prop);
-    public string SavePathImage( UserSchema prop);
+
+    public bool UpdatePhotoProfile(UpdatePhotoProfileSchema prop);
 
 }

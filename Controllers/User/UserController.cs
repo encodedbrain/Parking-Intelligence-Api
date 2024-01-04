@@ -12,7 +12,7 @@ public class UserController : ControllerBase
     [HttpPost]
     [Route("create/user")]
     [AllowAnonymous]
-    public IActionResult CreateUser([FromForm] UserSchema prop)
+    public IActionResult CreateUser([FromBody] UserSchema prop)
     {
         var user = new UserServices();
 
@@ -33,7 +33,7 @@ public class UserController : ControllerBase
             return BadRequest("invalid credentials");
         var userValidation = user.Service.Login(prop);
         if (userValidation is false)
-            return BadRequest("null user or invalid credentials");
+            return NotFound("null user or invalid credentials");
         return Ok(userValidation);
     }
 
@@ -47,7 +47,7 @@ public class UserController : ControllerBase
 
 
         if (string.IsNullOrEmpty(prop.Email) || string.IsNullOrEmpty(prop.Password))
-            return BadRequest("invalid fields");
+            return NotFound("invalid fields");
 
         var status = user.Service.Delete(prop).Result;
         if (status is false)
@@ -67,7 +67,7 @@ public class UserController : ControllerBase
 
         if (!status)
         {
-            return BadRequest("this user does not exist");
+            return NotFound("this user does not exist");
         }
 
         return Ok();
@@ -79,8 +79,18 @@ public class UserController : ControllerBase
     {
         UserServices userServices = new UserServices();
         var status = userServices.Service.DownloadPhoto(prop);
-        if (status is null) return NotFound();
-        
-        return File(status ,"image/png") ;;
+
+        return File(status, "image/png");
+    }
+
+    [HttpPatch]
+    [Route("update/photo")]
+    public IActionResult UpdatePhotoProfile([FromForm] UpdatePhotoProfileSchema prop)
+    {
+        UserServices userServices = new UserServices();
+        var status = userServices.Service.UpdatePhotoProfile(prop);
+
+        if (status is false) return BadRequest();
+        return Ok();
     }
 }

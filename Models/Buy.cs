@@ -88,13 +88,13 @@ namespace Parking_Intelligence_Api.Models
                         Change = ChangeToRreceive(this.InformsTheValueOfTheVacancy(prop.Species), prop.AmountPaid),
                         DateEntry = FormatTime(),
                         DepartureDate = DateTime.Now,
-                        StayTime = "",
+                        StayTime = string.Empty,
                         TicketNumber = GenerateCredential(),
                         LimitTime = VacancyTypeCheck(prop.VacancyType),
                     },
                     PaymentMethod = new PaymentMethod()
                     {
-                        Method = ""
+                        Method = string.Empty
                     }
                 }
             };

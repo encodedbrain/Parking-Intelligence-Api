@@ -3,7 +3,7 @@ namespace Parking_Intelligence_Api.Schemas.User
     public class UserSchema
     {
         public UserSchema(string nickname, string email, string password, string address, string cpf, string fullname,
-            string phone, IFormFile image)
+            string phone)
         {
             Nickname = nickname;
             Email = email;
@@ -12,7 +12,7 @@ namespace Parking_Intelligence_Api.Schemas.User
             Cpf = cpf;
             Fullname = fullname;
             Phone = phone;
-            Image = image;
+            // Image = image;
         }
 
         public UserSchema()
@@ -26,6 +26,5 @@ namespace Parking_Intelligence_Api.Schemas.User
         public string Cpf { get; set; } = null!;
         public string Fullname { get; set; } = null!;
         public string Phone { get; set; } = null!;
-        public IFormFile Image { get; set; } = null!;
     }
 }

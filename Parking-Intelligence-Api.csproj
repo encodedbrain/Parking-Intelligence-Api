@@ -84,6 +84,17 @@
     <None Remove="Tests\**" />
     <None Remove="Services\Ticket\**" />
     <None Remove="Schemas\Ticket\**" />
+    <None Remove="Storage\Captura de tela 2023-11-29 000701.png" />
+    <None Remove="Storage\Captura de tela 2023-10-29 031207.png" />
+    <None Remove="Storage\Captura de tela 2023-11-18 234039.png" />
+    <None Remove="Storage\Captura de tela 2023-11-01 194016.png" />
+    <None Remove="Storage\Captura de tela 2023-10-21 165646.png" />
+    <None Remove="Storage\Captura de tela 2023-11-29 005546.png" />
+    <None Remove="Storage\Captura de tela 2023-11-18 234022.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Storage\" />
   </ItemGroup>
 
 </Project>

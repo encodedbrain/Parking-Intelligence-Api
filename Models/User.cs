@@ -3,7 +3,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Utilities;
 using Parking_Intelligence_Api.Data;
 using Parking_Intelligence_Api.interfaces;
 using Parking_Intelligence_Api.Schemas.User;
@@ -349,7 +348,6 @@ namespace Parking_Intelligence_Api.Models
             if (!ValidateCredentials(prop)) return false;
             if (SearchingforUser(prop)) return false;
 
-            var Path = this.SavePathImage(prop);
             
             await using var db = new ParkingDb();
             var user = new User
@@ -357,7 +355,7 @@ namespace Parking_Intelligence_Api.Models
                 Nickname = prop.Nickname,
                 Password = EncryptingPassword(prop.Password),
                 Email = prop.Email,
-                Photo = Path,
+                Photo = string.Empty,
                 UserData = new UserData
                 {
                     Address = prop.Address,
@@ -442,26 +440,42 @@ namespace Parking_Intelligence_Api.Models
 
             return true;
         }
-
         public byte[] DownloadPhoto(DownloadSchema prop)
         {
             using var context = new ParkingDb();
 
             var user = context.Users.FirstOrDefault(user =>
                 user.Email == prop.Email && user.Password == this.EncryptingPassword(prop.Password));
-            
-            var dataBytes = System.IO.File.ReadAllBytes(user!.Photo);
-            return dataBytes;
 
+
+            if (user != null)
+            {
+                var dataBytes = System.IO.File.ReadAllBytes(user.Photo);
+                return dataBytes;
+            }
+
+            return new byte[] { };
         }
+        
 
-        public string SavePathImage(UserSchema prop)
+        public bool  UpdatePhotoProfile(UpdatePhotoProfileSchema prop)
         {
+            using var context = new ParkingDb();
+
+            var user = context.Users.FirstOrDefault(user => user.Email == prop.Email
+                                                            && user.Password == this.EncryptingPassword(prop.Password));
             var filePath = Path.Combine("Storage", prop.Image.FileName);
             using Stream fileStream = new FileStream(filePath, FileMode.Create);
             prop.Image.CopyTo(fileStream);
 
-            return filePath;
+            if (user != null)
+
+            {
+                user.Photo = filePath;
+                context.Update(user);
+                context.SaveChanges();
+            }
+            return true;
         }
     }
 }
