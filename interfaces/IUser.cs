@@ -17,6 +17,6 @@ public interface IUser
     public bool UpdatePassword(UpdatePasswordSchema prop);
     public byte[] DownloadPhoto(DownloadSchema prop);
 
-    public bool UpdatePhotoProfile(UpdatePhotoProfileSchema prop);
+    public Task<bool> UpdatePhotoProfile(UpdatePhotoProfileSchema prop);
 
 }
