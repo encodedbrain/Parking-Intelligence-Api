@@ -328,7 +328,7 @@ namespace Parking_Intelligence_Api.Models
         public object Login(LoginSchema prop)
         {
             using var db = new ParkingDb();
-            var user = db.Users.SingleOrDefaultAsync(
+            var user = db.Users.Include(user => user.UserData).SingleOrDefaultAsync(
                 user => user.Email == prop.Email && user.Password == EncryptingPassword(prop.Password)
             );
 
@@ -336,10 +336,10 @@ namespace Parking_Intelligence_Api.Models
             if (user.Result == null) return false;
 
             var token = TokenServices.GenerateToken(user.Result);
+            
             user.Result.Password = string.Empty;
 
-
-            return new { user.Id, user.Result.Email, user.Result.Nickname, token };
+            return new { user.Result.UserData.UserId, user.Result.Email, user.Result.Nickname, token };
         }
 
         public async Task<object> Create(UserSchema prop)
