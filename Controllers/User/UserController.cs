@@ -88,7 +88,7 @@ public class UserController : ControllerBase
     public IActionResult UpdatePhotoProfile([FromForm] UpdatePhotoProfileSchema prop)
     {
         UserServices userServices = new UserServices();
-        var status = userServices.Service.UpdatePhotoProfile(prop);
+        var status = userServices.Service.UpdatePhotoProfile(prop).Result;
 
         if (status is false) return BadRequest();
         return Ok();

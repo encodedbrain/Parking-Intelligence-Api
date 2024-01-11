@@ -458,7 +458,7 @@ namespace Parking_Intelligence_Api.Models
         }
         
 
-        public bool  UpdatePhotoProfile(UpdatePhotoProfileSchema prop)
+        public Task<bool> UpdatePhotoProfile(UpdatePhotoProfileSchema prop)
         {
             using var context = new ParkingDb();
 
@@ -475,7 +475,7 @@ namespace Parking_Intelligence_Api.Models
                 context.Update(user);
                 context.SaveChanges();
             }
-            return true;
+            return Task.FromResult(true);
         }
     }
 }
