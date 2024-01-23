@@ -2,5 +2,5 @@
 
 public interface IDownloadPhoto
 {
-    
+    public TYPE Type { get; set; }
 }

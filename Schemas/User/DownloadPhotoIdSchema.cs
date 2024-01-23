@@ -1,13 +1,13 @@
 ﻿namespace Parking_Intelligence_Api.Schemas.User;
 
-public class DownloadPhotoId
+public class DownloadPhotoIdSchema
 {
-    public DownloadPhotoId(int id)
+    public DownloadPhotoIdSchema(int id)
     {
         Id = id;
     }
 
-    public DownloadPhotoId()
+    public DownloadPhotoIdSchema()
     {
     }
 

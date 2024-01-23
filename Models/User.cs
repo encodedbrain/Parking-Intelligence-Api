@@ -338,8 +338,8 @@ namespace Parking_Intelligence_Api.Models
             var token = TokenServices.GenerateToken(user.Result);
             
             user.Result.Password = string.Empty;
-
-            return new { user.Result.UserData.UserId, user.Result.Email, user.Result.Nickname, token };
+            
+            return new { user.Result.Id, user.Result.Email, user.Result.Nickname, token };
         }
 
         public async Task<object> Create(UserSchema prop)
@@ -440,13 +440,13 @@ namespace Parking_Intelligence_Api.Models
 
             return true;
         }
-        public byte[] DownloadPhoto(DownloadSchema prop)
+        public byte[] DownloadPhoto(DownloadPhotoIdSchema prop)
         {
             using var context = new ParkingDb();
 
-            var user = context.Users.FirstOrDefault(user =>
-                user.Email == prop.Email && user.Password == this.EncryptingPassword(prop.Password));
-
+            // var user = context.Users.FirstOrDefault(user =>
+            //     user.Email == prop.Email && user.Password == this.EncryptingPassword(prop.Password));
+            var user = context.Users.Find(prop.Id);
 
             if (user != null)
             {

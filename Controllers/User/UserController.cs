@@ -75,12 +75,13 @@ public class UserController : ControllerBase
 
     [HttpPost]
     [Route("download/profile")]
-    public IActionResult DownloadPhotoUser([FromBody] DownloadSchema prop)
+    [AllowAnonymous]
+    public IActionResult DownloadPhotoUser([FromQuery] DownloadPhotoIdSchema prop)
     {
         UserServices userServices = new UserServices();
         var status = userServices.Service.DownloadPhoto(prop);
 
-        return File(status, "image/png");
+        return File(status, "image/jpg");
     }
 
     [HttpPatch]

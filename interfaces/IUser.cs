@@ -15,7 +15,7 @@ public interface IUser
     public Task<object> Create(UserSchema prop);
     public Task<bool> Delete(LoginSchema prop);
     public bool UpdatePassword(UpdatePasswordSchema prop);
-    public byte[] DownloadPhoto(DownloadSchema prop);
+    public byte[] DownloadPhoto(DownloadPhotoIdSchema prop);
 
     public Task<bool> UpdatePhotoProfile(UpdatePhotoProfileSchema prop);
 
