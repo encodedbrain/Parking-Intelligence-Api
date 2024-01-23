@@ -17,30 +17,6 @@ builder.Services.AddControllers();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ParkingDb>();
 
-if (builder.Environment.IsProduction())
-{
-    var keyVaultUrl = builder.Configuration.GetSection("KeyVault:KeyVaultURL");
-    var keyVaultClientId = builder.Configuration.GetSection("KeyVault:ClientId");
-    var keyVaultClientSecret = builder.Configuration.GetSection("KeyVault:ClientSecret");
-    var keyVaultDirectoryId = builder.Configuration.GetSection("KeyVault:DirectoryID");
-
-
-    var credential = new ClientSecretCredential(keyVaultDirectoryId.Value,keyVaultClientId.Value,keyVaultClientSecret.Value);
-
-    builder.Configuration.AddAzureKeyVault(keyVaultUrl.Value,keyVaultClientId.Value,keyVaultClientSecret.Value, new DefaultKeyVaultSecretManager());
-
-
-    if (keyVaultUrl.Value != null)
-    {
-        var client = new SecretClient(new Uri(keyVaultUrl.Value), credential);
-        
-        builder.Services.AddDbContext<ParkingDb>(options =>
-        {
-            options.UseSqlServer(client.GetSecret("production").Value.Value);
-        });
-    }
-}
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
